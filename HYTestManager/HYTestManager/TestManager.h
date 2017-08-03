@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TestEngine.h"
+#include "DriverModule.h"
 @interface TestManager : NSObject
 {
     TestEngine *m_pTestEngine;
@@ -20,7 +21,7 @@
 -(int)LoadUI:(NSString *)pathUI;
 -(int)LoadInStruments:(NSArray *)arrInstruments;
 -(int)LoadInStrument:(NSString *)pathModule;
--(int)LoadInStrument:(NSString *)bundleName withSelfTet:(BOOL)bSelfTest;
+-(int)LoadInStrument:(NSString *)bundleName withSelfTest:(BOOL)bSelfTest;
 -(int)LoadScript:(NSString *)pathScript;
 -(int)LoadString:(const char *)string;
 -(NSString *)GetInformation;

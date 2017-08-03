@@ -15,7 +15,7 @@
 
 -(void)dealloc
 {
-//    [super dealloc];
+    [super dealloc];
 }
 
 -(BOOL)windowShouldClose:(id)sender

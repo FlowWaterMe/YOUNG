@@ -308,7 +308,7 @@ extern CUserInformation *m_pUserInformation;
     for (NSString * pathInstrument in [dicConfig objectForKey:@kInstruments])
     {
         [self LogMessage:[NSString stringWithFormat:@"Loading Instrument : %@",pathInstrument] Level:MSG_LEVEL_NORMAL];
-        if ([tm LoadInstrument:pathInstrument withSelfTest:bSelfTest])
+        if ([tm LoadInStrument:pathInstrument withSelfTet:bSelfTest])
         {
             [self LogMessage:[NSString stringWithFormat:@"Loading Instrument : %@ failed!",pathInstrument] Level:MSG_LEVEL_ERROR];
             continue;

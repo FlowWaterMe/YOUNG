@@ -11,6 +11,7 @@
 #define INFOR_FORMAT @"Endine : \r\n"
 #define kBundleVersion            @"CFBundleShortVersionString"
 #define kBundleNumberVersion      @"CFBundleVersion"
+
 static __attribute__((used)) NSString *kIntelligentLibrary = @"/Library/IntelligentAutomation";
 static __attribute__((used)) NSString *kIntelligentBundles = @"/Library/IntelligentAutomation/Bundles";//_attribute__((used)) has no effect when linking static library into shared object (android gcc 4.8)
 
@@ -21,7 +22,7 @@ static __attribute__((used)) NSString *kIntelligentBundles = @"/Library/Intellig
     if (self)
     {
         NSString * bundlepath = [[NSBundle bundleForClass:[self class]] bundlePath];
-        m_CurrentPath = [bundlepath stringByDeletingLastPathComponent];
+        m_CurrentPath = [bundlepath stringByDeletingLastPathComponent];//m_CurrentPath	NSPathStore2 *	"/Users/mac/Documents/程序/YOUNG/Build/Products/Debug"	0x00006000000e7c00
         m_strInformation = [[NSMutableString alloc] initWithString:@""];
         
         m_arrModules = [NSMutableArray new];
@@ -51,7 +52,7 @@ static __attribute__((used)) NSString *kIntelligentBundles = @"/Library/Intellig
         bundlePath = [NSString stringWithString:bundleName];
     } else {
         bundlePath = [m_CurrentPath stringByAppendingPathComponent:bundleName];
-    }
+    }//m_CurrentPath	NSPathStore2 *	"/Users/mac/Documents/程序/YOUNG/Build/Products/Debug/Engine.bundle"
     
     NSBundle *bundle;
     
@@ -127,14 +128,14 @@ static __attribute__((used)) NSString *kIntelligentBundles = @"/Library/Intellig
     }
     
     id UI  = [[[bundle principalClass] alloc]init];
-//    if (![UI conformsToProtocol:@protocol(DriverModule)])
-//    {
-//        return -3;
-//    }
+    if (![UI conformsToProtocol:@protocol(DriverModule)])
+    {
+        return -3;
+    }
     
     [m_pTestEngine RegisterModule:UI];
     
-//    [UI Load:nil];
+    [UI Load:nil];
     
     [m_strInformation appendString:@"User Interface:\r\n"];
     [self GetBundleInformation:bundle];
@@ -148,18 +149,18 @@ static __attribute__((used)) NSString *kIntelligentBundles = @"/Library/Intellig
     [m_strInformation appendString:@"Instruments:\r\n"];
     for (NSString * pathInstrument  in arrInstruments)
     {
-        [self LoadInstrument:pathInstrument];
+        [self LoadInStrument:pathInstrument];
     }
     return 0;
 }
 
 -(int)LoadInStrument:(NSString *)pathModule
 {
-//    return [self LoadInstrument:pathModule withSelfTest:YES];
-    return 0;
+    return [self LoadInStrument:pathModule withSelfTest:YES];
+//    return 0;
 }
 
--(int)LoadInStrument:(NSString *)bundleName withSelfTet:(BOOL)bSelfTest
+-(int)LoadInStrument:(NSString *)bundleName withSelfTest:(BOOL)bSelfTest
 {
     static int count=0;
     
@@ -191,5 +192,16 @@ static __attribute__((used)) NSString *kIntelligentBundles = @"/Library/Intellig
     [m_strInformation appendString:@"\r\n"];
     return 0;
 
+}
+
+-(int)LoadString:(const char *)string
+{
+  return [m_pTestEngine RegisterString:string];
+}
+
+-(int)LoadScript:(NSString *)pathScript
+{
+    [m_pTestEngine RegisterScript:pathScript];
+    return 0;
 }
 @end

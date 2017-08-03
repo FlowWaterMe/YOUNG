@@ -35,7 +35,7 @@ CUserInformation * m_pUserInformation=nil;
         [winMain makeKeyAndOrderFront:nil];
     }
     else {
-        NSRunAlertPanel(@"Login", @"Incorrectly user name or password,try again!", @"OK", nil, nil);
+//        NSRunAlertPanel(@"Login", @"Incorrectly user name or password,try again!", @"OK", nil, nil);
     }
     [textPassword setStringValue:@""];
     [textUserName becomeFirstResponder];

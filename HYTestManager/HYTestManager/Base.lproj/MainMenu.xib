@@ -38,6 +38,7 @@
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <customObject id="eyN-fr-ppF" userLabel="Tm Usermananger Wnd Delegate" customClass="NSFontManager"/>
         <menuItem title="Item" id="lE0-ED-UI4" userLabel="Menu Login">
             <modifierMask key="keyEquivalentModifierMask"/>
             <connections>
@@ -864,7 +865,7 @@ DQ
                         </buttonCell>
                     </button>
                     <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="CFO-Mr-dP1">
-                        <rect key="frame" x="0.0" y="473" width="609" height="4"/>
+                        <rect key="frame" x="0.0" y="473" width="609" height="5"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
@@ -1086,6 +1087,9 @@ Gw
             <string key="userLabel" base64-UTF8="YES">
 UGFuZWwgCFVzZXIgTWFuYWdlcg
 </string>
+            <connections>
+                <outlet property="delegate" destination="eyN-fr-ppF" id="c2f-ic-aIT"/>
+            </connections>
         </window>
         <window title="Select Tm File" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="Q1D-QX-Drc" userLabel="Win Tm File">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
