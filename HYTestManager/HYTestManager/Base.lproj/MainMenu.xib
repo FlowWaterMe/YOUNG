@@ -745,7 +745,7 @@
                     </progressIndicator>
                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oPI-VA-JEE">
                         <rect key="frame" x="-3" y="-3" width="765" height="590"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="photo" image="huadou" id="hdS-1U-nGq"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="photo" image="intelligent" id="hdS-1U-nGq"/>
                     </imageView>
                 </subviews>
             </view>
@@ -1179,6 +1179,6 @@ UGFuZWwgCFVzZXIgTWFuYWdlcg
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSEveryone" width="32" height="32"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="huadou" width="540" height="540"/>
+        <image name="intelligent" width="759" height="584"/>
     </resources>
 </document>

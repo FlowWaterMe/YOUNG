@@ -23,6 +23,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2017年 com.Young. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string>GT_Engine</string>
+	<string>GT_UserInterface</string>
 </dict>
 </plist>

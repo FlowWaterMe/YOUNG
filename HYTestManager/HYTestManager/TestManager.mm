@@ -102,10 +102,10 @@ static __attribute__((used)) NSString *kIntelligentBundles = @"/Library/Intellig
         }
     
     Class c = [bundle principalClass];
-    if (![c isSubclassOfClass:[TestEngine class]])
-    {
-        return -2;
-    }
+//    if (![c isSubclassOfClass:[TestEngine class]])
+//    {
+//        return -2;
+//    }
     
     m_pTestEngine = [[c alloc] init];//c = GT_Engine
     

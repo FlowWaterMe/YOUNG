@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#include "//Users/mac/Documents/程序/YOUNG/HYTestManager/TestEngine.h"
+#import "TestEngine.h"
+//#include "//Users/mac/Documents/程序/YOUNG/HYTestManager/ScriptEngine.h"
+
 #define UUT_MODULE  1
-//#include <CoreLib/TestEngine.h>
-//#include "CoreLib/ScriptEngine.h"
+
 @interface GT_Engine : TestEngine{
 @private
 //    CScriptEngine * m_ScriptEngine[UUT_MODULE];     //Script Engine
@@ -24,3 +25,5 @@
     int m_ModuleFinish;
     int m_ModuleTesting;
 }
+@end
+

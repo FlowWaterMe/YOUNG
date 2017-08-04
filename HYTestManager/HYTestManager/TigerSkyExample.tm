@@ -10,8 +10,8 @@
         <string>Engine.bundle</string>
         <key>Instruments</key>
         <array>
-            <string>global.bundle</string>
-            <string>datalogger.bundle</string>
+<!--            <string>global.bundle</string>-->
+<!--            <string>datalogger.bundle</string>-->
 <!--            <string>Instrument.bundle</string>-->
         </array>
         <key>StartUp</key>
