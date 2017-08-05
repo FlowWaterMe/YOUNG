@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#include "DriverModule.h"
-#include "TestEngine.h"
+#include "/Users/mac/Documents/程序/YOUNG/CoreLib//DriverModule.h"
+#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestEngine.h"
 
 extern TestEngine * m_pTestEngine;
 extern NSTreeNode * items;

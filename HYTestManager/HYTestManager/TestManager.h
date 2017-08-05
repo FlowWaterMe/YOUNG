@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TestEngine.h"
-#include "DriverModule.h"
+#import "CoreLib/CoreLib.h"
+#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestEngine.h"
+
+#include "/Users/mac/Documents/程序/YOUNG/CoreLib/DriverModule.h"
 @interface TestManager : NSObject
 {
     TestEngine *m_pTestEngine;

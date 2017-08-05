@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "TestEngine.h"
-//#include "//Users/mac/Documents/程序/YOUNG/HYTestManager/ScriptEngine.h"
+//#import "TestEngine.h"
+#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestEngine.h"
 
 #define UUT_MODULE  1
 
