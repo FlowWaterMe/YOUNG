@@ -745,7 +745,7 @@
                     </progressIndicator>
                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oPI-VA-JEE">
                         <rect key="frame" x="-3" y="-3" width="765" height="590"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="photo" image="intelligent" id="hdS-1U-nGq"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="photo" image="sky" id="hdS-1U-nGq"/>
                     </imageView>
                 </subviews>
             </view>
@@ -865,7 +865,7 @@ DQ
                         </buttonCell>
                     </button>
                     <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="CFO-Mr-dP1">
-                        <rect key="frame" x="0.0" y="473" width="609" height="5"/>
+                        <rect key="frame" x="0.0" y="473" width="609" height="4"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
@@ -873,17 +873,17 @@ DQ
                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMk-5Z-WFV">
                         <rect key="frame" x="20" y="51" width="569" height="400"/>
                         <clipView key="contentView" ambiguous="YES" id="Cgd-Kj-PnH">
-                            <rect key="frame" x="1" y="1" width="567" height="398"/>
+                            <rect key="frame" x="1" y="1" width="551" height="398"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="HlM-GS-xbN">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="398"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="551" height="398"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="567" height="398"/>
+                                    <size key="minSize" width="551" height="398"/>
                                     <size key="maxSize" width="593" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="567" height="398"/>
+                                    <size key="minSize" width="551" height="398"/>
                                     <size key="maxSize" width="593" height="10000000"/>
                                 </textView>
                             </subviews>
@@ -894,7 +894,7 @@ DQ
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="9dF-nE-PxM">
-                            <rect key="frame" x="552" y="1" width="16" height="398"/>
+                            <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -1179,6 +1179,6 @@ UGFuZWwgCFVzZXIgTWFuYWdlcg
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSEveryone" width="32" height="32"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="intelligent" width="759" height="584"/>
+        <image name="sky" width="1024" height="639"/>
     </resources>
 </document>
