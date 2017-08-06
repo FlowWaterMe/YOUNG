@@ -22,8 +22,8 @@
         dicModuleConfig = [NSMutableDictionary new];
         engineLock = [[NSLock alloc]init];
         for (int i=0; i<=UUT_MODULE-1; i++) {
-//            m_ScriptEngine[i] = new CScriptEngine();
-//            m_ScriptEngine[i]->Init();
+            m_ScriptEngine[i] = new CScriptEngine();
+            m_ScriptEngine[i]->Init();
             [self RegisterUUT_Variant:i];
             
             //Test Context
@@ -48,13 +48,13 @@
 
 -(void)dealloc
 {
-//    [dicModuleConfig release];
-//    for (int i=0; i<=UUT_MODULE-1; i++) {
-//        delete m_ScriptEngine[i];
+    [dicModuleConfig release];
+    for (int i=0; i<=UUT_MODULE-1; i++) {
+        delete m_ScriptEngine[i];
 //        delete m_pTestContext[i];
 //        m_pTestContext[i]=NULL;
-//    }
-//    [engineLock release];
+    }
+    [engineLock release];
     [super dealloc];
 }
 
@@ -79,12 +79,12 @@
     //export ID into each unit
     NSString * str = [NSString stringWithFormat:@"ID=%d;",index];
     int err;
-//    err = m_ScriptEngine[index]->DoString([str UTF8String]);
-//    char * sz=NULL;
-//    if (err)
-//    {
-//        sz = (char *)lua_tostring(m_ScriptEngine[index]->m_pLuaState, -1);
-//    }
+    err = m_ScriptEngine[index]->DoString([str UTF8String]);
+    char * sz=NULL;
+    if (err)
+    {
+        sz = (char *)lua_tostring(m_ScriptEngine[index]->m_pLuaState, -1);
+    }
     return 0;
     
     //export usb location;
@@ -99,13 +99,13 @@
 
 -(int)StartTest
 {
-//    if ([self IsTesting:-1]) return -1;
+    if ([self IsTesting:-1]) return -1;
 //    //v1.2
-//    [m_threadManager release];
-//    m_threadManager = [[NSThread alloc] initWithTarget:self selector:@selector(threadManager:) object:self];
-//    [m_threadManager start];
-//    return 0;
-//    
+    [m_threadManager release];
+    m_threadManager = [[NSThread alloc] initWithTarget:self selector:@selector(threadManager:) object:self];
+    [m_threadManager start];
+    return 0;
+//
 //    //-------
 //    m_ModuleFinish=0;
 //    m_ModuleTesting=0;
@@ -142,30 +142,30 @@
 //        [[threadUintTest[i] threadDictionary] removeAllObjects];
 //        [threadUintTest[i] start];
 //    }
-    return 0;
+//    return 0;
 }
 
 -(void)threadManager:(id)sender
 {
     
     //initial
-//    for (int i=0; i<UUT_MODULE; i++) {
+    for (int i=0; i<UUT_MODULE; i++) {
 //        [m_pTestContext[i]->m_dicContext setValue:[NSNumber numberWithBool:NO] forKey:@"IsTestBreak?"];
-//        
-//        m_ScriptEngine[i]->Reslease();
-//        m_ScriptEngine[i]->Init();
-//        m_ScriptEngine[i]->DoString("__TestInitial()");
-//    }
-//    
+//
+        m_ScriptEngine[i]->Reslease();
+        m_ScriptEngine[i]->Init();
+        m_ScriptEngine[i]->DoString("__TestInitial()");
+    }
+//
 //    //go test
-//    m_ModuleFinish=0;
-//    m_ModuleTesting=0;
-//    
+    m_ModuleFinish=0;
+    m_ModuleTesting=0;
+//
 //    //hack... clear DUT lock giveup signal
-//    [[NSFileManager defaultManager] removeItemAtPath:@"/tmp/TestManagerStop.tmp" error:nil];
-//    
-//    NSString * dicKey[] = {@kEngineUUT0Enable,@kEngineUUT1Enable,@kEngineUUT2Enable,@kEngineUUT3Enable,@kEngineUUT4Enable,@kEngineUUT5Enable,@kEngineUUT6Enable,@kEngineUUT7Enable};
-//    
+    [[NSFileManager defaultManager] removeItemAtPath:@"/tmp/TestManagerStop.tmp" error:nil];
+//
+    NSString * dicKey[] = {@kEngineUUT0Enable,@kEngineUUT1Enable,@kEngineUUT2Enable,@kEngineUUT3Enable,@kEngineUUT4Enable,@kEngineUUT5Enable,@kEngineUUT6Enable,@kEngineUUT7Enable};
+//
 //    for (int i=0;i<=UUT_MODULE-1;i++)
 //    {
 //        id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
@@ -388,12 +388,12 @@
 
 -(int)RegisterModule:(id)module
 {
-//    for (int i=0; i<=UUT_MODULE-1; i++) {
-//        [dicModuleConfig setValue:[NSNumber numberWithLong:(long)m_ScriptEngine[i]->m_pLuaState] forKey:@"lua"];
-//        [dicModuleConfig setValue:[NSNumber numberWithInt:i] forKey:@"id"];
-//        [dicModuleConfig setValue:self forKey:@"TestEngine"];
-//        [module RegisterModule:dicModuleConfig];
-//    }
+    for (int i=0; i<=UUT_MODULE-1; i++) {
+        [dicModuleConfig setValue:[NSNumber numberWithLong:(long)m_ScriptEngine[i]->m_pLuaState] forKey:@"lua"];
+        [dicModuleConfig setValue:[NSNumber numberWithInt:i] forKey:@"id"];
+        [dicModuleConfig setValue:self forKey:@"TestEngine"];
+        [module RegisterModule:dicModuleConfig];
+    }
     return 0;
 }
 -(int)RegisterScript:(NSString *)pathscript
