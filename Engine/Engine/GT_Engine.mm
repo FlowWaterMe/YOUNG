@@ -399,14 +399,14 @@
 -(int)RegisterScript:(NSString *)pathscript
 {
     int err=0;
-//    for (int i=0; i<UUT_MODULE; i++) {
-//        err = m_ScriptEngine[i]->DoFile([pathscript UTF8String]);
-//        if (err!=0) {
-//            NSString * strError = [NSString stringWithUTF8String:lua_tostring(m_ScriptEngine[i]->m_pLuaState, -1)];
-//            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//            return -1;
-//        }
-//    }
+    for (int i=0; i<UUT_MODULE; i++) {
+        err = m_ScriptEngine[i]->DoFile([pathscript UTF8String]);
+        if (err!=0) {
+            NSString * strError = [NSString stringWithUTF8String:lua_tostring(m_ScriptEngine[i]->m_pLuaState, -1)];
+            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+            return -1;
+        }
+    }
     return 0;
 }
 
@@ -436,9 +436,9 @@
 
 -(void *)GetScripEngine:(int)index
 {
-//    if ((index<0)||(index>=UUT_MODULE)) return NULL;
-//    return m_ScriptEngine[index];
-    return nil;
+    if ((index<0)||(index>=UUT_MODULE)) return NULL;
+    return m_ScriptEngine[index];
+//    return nil;
 }
 
 -(void *)GetTestContext:(int)index
@@ -450,15 +450,15 @@
 
 -(int)RegisterString:(const char *)string
 {
-//    int err=0;
-//    for (int i=0; i<UUT_MODULE; i++) {
-//        err = m_ScriptEngine[i]->DoString(string);
-//        if (err!=0) {
-//            NSString * strError = [NSString stringWithUTF8String:lua_tostring(m_ScriptEngine[i]->m_pLuaState, -1)];
-//            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//            return -1;
-//        }
-//    }
+    int err=0;
+    for (int i=0; i<UUT_MODULE; i++) {
+        err = m_ScriptEngine[i]->DoString(string);
+        if (err!=0) {
+            NSString * strError = [NSString stringWithUTF8String:lua_tostring(m_ScriptEngine[i]->m_pLuaState, -1)];
+            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+            return -1;
+        }
+    }
     return 0;
 }
 

@@ -336,7 +336,7 @@ extern CUserInformation *m_pUserInformation;
     //add script folder in current directory
     strScript = [[[bundle bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Profile"];
     //str = [NSString stringWithFormat:@"%@..';%@/?.lua'",str,strScript];
-    str = [NSString stringWithFormat:@"%@..';%@/?.lua'..';'..'%@/?.imp'",str,strScript,strScript];
+//    str = [NSString stringWithFormat:@"%@..';%@/?.lua'..';'..'%@/?.imp'",str,strScript,strScript];
     
     [tm LoadString:[str UTF8String]];
     

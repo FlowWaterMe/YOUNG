@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Global/Global.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:CoreLib/CoreLib.xcodeproj">
    </FileRef>
    <FileRef
