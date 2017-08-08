@@ -729,17 +729,17 @@ READY</string>
                                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-aI-gPU">
                                         <rect key="frame" x="0.0" y="0.0" width="900" height="111"/>
                                         <clipView key="contentView" ambiguous="YES" id="npa-Z1-fDh">
-                                            <rect key="frame" x="1" y="1" width="898" height="109"/>
+                                            <rect key="frame" x="1" y="1" width="882" height="109"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="sUV-Mz-THm">
-                                                    <rect key="frame" x="0.0" y="0.0" width="898" height="109"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="882" height="109"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="898" height="109"/>
+                                                    <size key="minSize" width="882" height="109"/>
                                                     <size key="maxSize" width="904" height="10000000"/>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="898" height="109"/>
+                                                    <size key="minSize" width="882" height="109"/>
                                                     <size key="maxSize" width="904" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -750,7 +750,7 @@ READY</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="F2C-jG-ods">
-                                            <rect key="frame" x="883" y="1" width="16" height="109"/>
+                                            <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>

@@ -340,7 +340,7 @@ extern CUserInformation *m_pUserInformation;
     
     [tm LoadString:[str UTF8String]];
     
-    [tm LoadScript:[[bundle resourcePath] stringByAppendingPathComponent:@"../Script/Global.lua"]];
+    [tm LoadScript:[[bundle resourcePath] stringByAppendingPathComponent:@"/Global.lua"]];
     
     [self LogMessage:@"Loading script..." Level:MSG_LEVEL_NORMAL];
     for (NSString * pathScript in [dicConfig objectForKey:@kScript])

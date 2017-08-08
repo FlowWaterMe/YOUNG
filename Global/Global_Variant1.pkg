@@ -1,0 +1,3 @@
+#pragma once
+$#include "Global_Variant.h"
+extern CTestContext * TestContext0@TestContext;
