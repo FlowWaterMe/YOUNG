@@ -7,12 +7,14 @@
 ////
 //
 #import "uiMainWndDelegate.h"
-//#include "GT_UserInterface.h"
+#include "GT_UserInterface.h"
 //#include "UI_Global.h"
-//
-//#include <CoreLib/PathManager.h>
-//
-//#include "CoreLib/TestItem.h"
+#include "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/Common.h"
+#include "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/PathManager.h"
+
+#include "/Users/mac/Documents/程序/YOUNG//CoreLib/ScriptEngine.h"
+#include "/Users/mac/Documents/程序/YOUNG//CoreLib/CoreLib/KeyItem.h"
+#include "/Users/mac/Documents/程序/YOUNG//CoreLib/CoreLib/TestItem.h"
 //#include "uiDebugWndDelegate.h"
 //#include "uiConfigWndDelegate.h"
 //
@@ -25,7 +27,7 @@
 //
 //#include "TestFailListPanelDelegate.h"
 //
-//#define Config_File     @"UI_config.plist"
+#define Config_File     @"UI_config.plist"
 //
 ///*
 // -----------------------------------------------------------------------
@@ -36,19 +38,19 @@
 // -----------------------------------------------------------------------
 // */
 //
-//#define UI_MODULE       1
+#define UI_MODULE       1
+
+#define crPASS  [NSColor greenColor]
+#define crFAIL  [NSColor redColor]
+#define crRUN   [NSColor blueColor]
+#define crNA    [NSColor grayColor]
+#define crERROR [NSColor yellowColor]
+//#define crIDLE  [NSColor cyanColor]
+#define crIDLE  [NSColor selectedTextBackgroundColor]
 //
-//#define crPASS  [NSColor greenColor]
-//#define crFAIL  [NSColor redColor]
-//#define crRUN   [NSColor blueColor]
-//#define crNA    [NSColor grayColor]
-//#define crERROR [NSColor yellowColor]
-////#define crIDLE  [NSColor cyanColor]
-//#define crIDLE  [NSColor selectedTextBackgroundColor]
 //
-//
-//uiMainWndDelegate * mainWnd=nil;
-//extern TestEngine * m_pTestEngine;
+uiMainWndDelegate * mainWnd=nil;
+extern TestEngine * m_pTestEngine;
 //
 //static BOOL IsRetest = NO;
 //
@@ -57,29 +59,29 @@
 @synthesize loadedIndexPath;
 -(void)awakeFromNib
 {
-//    //initial.....
+    //initial.....
 //    m_TestAutomation = [Automation new];
-//    
-//    mainWnd = self;
-//    m_DebugCondition = [NSCondition new];
+    
+    mainWnd = self;
+    m_DebugCondition = [NSCondition new];
 //    UI = new CUserInterface(self);
-//    
+    
 //    testProgressController = [[uiTestProgressController alloc] init];
-//    
-//    scrollOutlineViewTaskTimer = nil;
-//    
-//    //Load Configuration
+    
+    scrollOutlineViewTaskTimer = nil;
+    
+    //Load Configuration
 //    [self LoadConfig:Config_File];
-//    //[self LoadFixtureID];
-//    
-//    NSString * profileToLoad = [self autoLoadProfile];
-//    if (!profileToLoad || ![profileToLoad length])
-//    {
+//    [self LoadFixtureID];
+    
+    NSString * profileToLoad = @"DemoFirst.seq";//[self autoLoadProfile];
+    if (!profileToLoad || ![profileToLoad length])
+    {
 //        profileToLoad = [CTestContext::m_dicConfiguration valueForKey:@kEngineProfilePath];
-//    }
-//    [self LoadProfile:profileToLoad];
-//    
-//    //Create LogDir
+    }
+    [self LoadProfile:profileToLoad];
+    
+    //Create LogDir
 //    @try {
 //        NSString * path = [CTestContext::m_dicConfiguration valueForKey:kConfigLogDir];
 //        NSError * err;
@@ -105,58 +107,58 @@
 //    [outlineView setDoubleAction:@selector(OnDblClickOutlineView:)];
 //    
 //    arrBreakPoints = [NSMutableArray new];
-//    
-//    //Add notification monitor
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestStart object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestStop object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestFinish object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestPause object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestResume object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestItemStart object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestItemFinish object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestError object:nil];
-//    
-//    //Do Action Notification
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestStart object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestStop object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestFinish object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestPause object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestResume object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestItemStart object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestItemFinish object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestError object:nil];
-//    
-//    
-//    //Ui Ctrl Notificaition
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoUiCtrl object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationEnableUUTCtrl object:nil] ;
-//    //Do Change User
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoChangeUser object:nil];
-//    
-//    //Engine finish
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnEngineNotification:) name:kNotificationOnEngineStart object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnEngineNotification:) name:kNotificationOnEngineFinish object:nil];
-//    
-//    
-//    //post notification to attchment menus
-//    //[[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObject:instrMenu forKey:@"menus"]];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:instrMenu,@"menus",winMain,@"windows", nil]];
-//    
-//    //UI update
+    
+    //Add notification monitor
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestStart object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestStop object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestFinish object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestPause object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestResume object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestItemStart object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestItemFinish object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationOnTestError object:nil];
+    
+    //Do Action Notification
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestStart object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestStop object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestFinish object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestPause object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestResume object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestItemStart object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestItemFinish object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoTestError object:nil];
+    
+    
+    //Ui Ctrl Notificaition
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoUiCtrl object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationEnableUUTCtrl object:nil] ;
+    //Do Change User
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnUiNotification:) name:kNotificationDoChangeUser object:nil];
+    
+    //Engine finish
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnEngineNotification:) name:kNotificationOnEngineStart object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnEngineNotification:) name:kNotificationOnEngineFinish object:nil];
+    
+    
+    //post notification to attchment menus
+    //[[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObject:instrMenu forKey:@"menus"]];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:instrMenu,@"menus",winMain,@"windows", nil]];
+    
+    //UI update
 //    [textStation setStringValue:[CTestContext::m_dicGlobal valueForKey:kContextStationName]];
 //    [textLine setStringValue:[CTestContext::m_dicGlobal valueForKey:kContextLineName]];
 //    [textStationID setStringValue:[CTestContext::m_dicGlobal valueForKey:kContextStationID]];
-//    
+    
 //    NSString * str = [CTestContext::m_dicConfiguration valueForKey:kConfigFixtureID];
 //    if ((!str)||([str length]==0))
 //    {
-//        //NSRunAlertPanel(@"Fixture ID", @"Please scan the fixture id first!", @"OK", nil, nil);
+        //NSRunAlertPanel(@"Fixture ID", @"Please scan the fixture id first!", @"OK", nil, nil);
 //    }
 //    else
 //    {
 //        [textFixtureID setStringValue:[CTestContext::m_dicConfiguration valueForKey:kConfigFixtureID]];
 //    }
-//    
+    
 //    [textSNInput setEnabled:[[CTestContext::m_dicConfiguration valueForKey:kConfigScanBarcode]boolValue]];
 //    [textSNInput becomeFirstResponder];
 //    
@@ -171,22 +173,22 @@
 //    {
 //        [m_TestAutomation WriteVersion:[CTestContext::m_dicGlobal valueForKey:kContextTMVersion] ScriptVersion:[textVersion stringValue]];
 //    }
-//    
-//    
-//    /*
-//     * give config window an early peek at options
-//     */
+    
+    
+    /*
+     * give config window an early peek at options
+     */
 //    [(id)[winConfiguration delegate] InitialCtrls:CTestContext::m_dicConfiguration];
 //    
-//    /*
-//     -----------------------------------------------------------------------
-//     author:ZL Meng
-//     Date:Jul.17 2015
-//     Description:
-//     修改默认显示界面到详细
-//     -----------------------------------------------------------------------
-//     */
-//    
+    /*
+     -----------------------------------------------------------------------
+     author:ZL Meng
+     Date:Jul.17 2015
+     Description:
+     修改默认显示界面到详细
+     -----------------------------------------------------------------------
+     */
+    
 //    [btnShowTests setState:NSOnState];
 //    [self btnShowTestsClicked:self];
 //    
@@ -221,47 +223,47 @@
 }
 //
 //
-//-(void)LoadFixtureID
-//{
-//    @try {
-//        CScriptEngine * pScriptEngine=(CScriptEngine *)[m_pTestEngine GetScripEngine:0];
-//        int err = 0;
-//        
-//        //Get global function
-//        lua_getglobal(pScriptEngine->m_pLuaState, "__GetFixtureID");
-//        err = lua_pcall(pScriptEngine->m_pLuaState, 0, 1, 0);
-//        if (err)
-//        {
-//            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
-//            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//        }
-//        
-//        if (lua_type(pScriptEngine->m_pLuaState, -1)==LUA_TNIL)
-//        {
-//            NSString * strError = @"Invalid fixtureID format.";
-//            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//        }
-//        
-//        //Read Result
-//        const char * fixtureid = lua_tostring(pScriptEngine->m_pLuaState, -1);
-//        
-//        if (strlen(fixtureid)==0)
-//        {
-//            NSString * strError = @"FixtureID length is 0!";
-//            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//        }
-//        
-//        //Save profile file path name
+-(void)LoadFixtureID
+{
+    @try {
+        CScriptEngine * pScriptEngine=(CScriptEngine *)[m_pTestEngine GetScripEngine:0];
+        int err = 0;
+        
+        //Get global function
+        lua_getglobal(pScriptEngine->m_pLuaState, "__GetFixtureID");
+        err = lua_pcall(pScriptEngine->m_pLuaState, 0, 1, 0);
+        if (err)
+        {
+            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
+            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+        }
+        
+        if (lua_type(pScriptEngine->m_pLuaState, -1)==LUA_TNIL)
+        {
+            NSString * strError = @"Invalid fixtureID format.";
+            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+        }
+        
+        //Read Result
+        const char * fixtureid = lua_tostring(pScriptEngine->m_pLuaState, -1);
+        
+        if (strlen(fixtureid)==0)
+        {
+            NSString * strError = @"FixtureID length is 0!";
+            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+        }
+        
+        //Save profile file path name
 //        [CTestContext::m_dicConfiguration setValue:[NSString stringWithFormat:@"%s",fixtureid] forKey:kConfigFixtureID];
-//    }
-//    @catch (NSException *exception) {
-//        NSString * msg = [NSString stringWithFormat:@"Could get fixture from fixtrue,please check the cable connection is OK, with error message:\r\n%@",[exception description]];
-//        NSLog(@"%@",msg);
-//        NSRunAlertPanel(@"Auto Get Fixture ID failed!", @"%@", @"OK", nil, nil,msg);
-//    }
-//    @finally {
-//    }
-//}
+    }
+    @catch (NSException *exception) {
+        NSString * msg = [NSString stringWithFormat:@"Could get fixture from fixtrue,please check the cable connection is OK, with error message:\r\n%@",[exception description]];
+        NSLog(@"%@",msg);
+        NSRunAlertPanel(@"Auto Get Fixture ID failed!", @"%@", @"OK", nil, nil,msg);
+    }
+    @finally {
+    }
+}
 //
 //
 //#pragma mark Configuration
@@ -957,37 +959,37 @@
 //    }
 //}
 //
-//#pragma mark PROFILE_ANALYZER
-//-(int)LoadProfile:(NSString *)fileProfile
-//{
-//    //get absoule path;
-//    NSString * profile = fileProfile;
-//    [winMain setTitle:profile];
-//    if (![profile isAbsolutePath])
-//    {
-//        profile = [[NSBundle mainBundle] bundlePath];
-//        profile = [profile stringByDeletingLastPathComponent];
-//        profile = [profile stringByAppendingPathComponent:@"profile"];
-//        profile = [profile stringByAppendingPathComponent:fileProfile];
-//    }
-//    
-//    NSString * fileExtern = [[profile pathExtension] uppercaseString];
-//    if ([fileExtern isEqualToString:@"LUA"]||
-//        [fileExtern isEqualToString:@"PRF"]
-//        )
-//    {
-//        return [self LoadProfile_lua:profile];
-//    }
-//    else if ([fileExtern isEqualToString:@"SEQ"]) {
-//        return [self LoadProfile_Seq:profile];
-//    } else if ([fileExtern isEqualTo:@"IASEQ"]) {
-//        return [self loadSequenceBundle:fileProfile];
-//    }
-//    return 0;
-//}
-//
-//- (NSString*) autoLoadProfile
-//{
+#pragma mark PROFILE_ANALYZER
+-(int)LoadProfile:(NSString *)fileProfile
+{
+    //get absoule path;
+    NSString * profile = fileProfile;
+    [winMain setTitle:profile];
+    if (![profile isAbsolutePath])
+    {
+        profile = [[NSBundle mainBundle] bundlePath];
+        profile = [profile stringByDeletingLastPathComponent];
+        profile = [profile stringByAppendingPathComponent:@"profile"];
+        profile = [profile stringByAppendingPathComponent:fileProfile];
+    }
+    
+    NSString * fileExtern = [[profile pathExtension] uppercaseString];
+    if ([fileExtern isEqualToString:@"LUA"]||
+        [fileExtern isEqualToString:@"PRF"]
+        )
+    {
+        return [self LoadProfile_lua:profile];
+    }
+    else if ([fileExtern isEqualToString:@"SEQ"]) {
+        return [self LoadProfile_Seq:profile];
+    } else if ([fileExtern isEqualTo:@"IASEQ"]) {
+        return [self loadSequenceBundle:fileProfile];
+    }
+    return 0;
+}
+
+- (NSString*) autoLoadProfile
+{
 //    NSString * stationType = [CTestContext::m_dicGlobal objectForKey:kContextStationType];//[CTestContext::m_dicConfiguration objectForKey:kContextStationType];
 //    if (stationType)
 //    {
@@ -1000,128 +1002,127 @@
 //            return [tmLookUp objectForKey:stationType];
 //        }
 //    }
-//    return  nil;
-//}
-//
-//-(int)LoadProfile_lua:(NSString *) fileProfile
-//{
-//    @try {
-//        
-//        CScriptEngine * pScriptEngine=nil;
-//        int err = 0;
-//        /*
-//         -----------------------------------------------------------------------
-//         author:ZL Meng
-//         Date:Jul.17 2015
-//         Description:
-//         修改测试线程数从6个改成1个
-//         -----------------------------------------------------------------------
-//         */
-//        for (int i=0; i<UI_MODULE; i++) {
-//            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
-//            err = pScriptEngine->DoFile([fileProfile UTF8String]);
-//            if (err)
-//            {
-//                NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
-//                @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//            }
-//        }
-//        
-//        lua_State  * lua = pScriptEngine->m_pLuaState;
-//        
-//        lua_getglobal(lua, "Module");     //Module Name
-//        const char * szModule = lua_tostring(lua, -1);
-//        if (!szModule)
-//        {
-//            szModule = "No specical the module name";
-//        }
-//        [textModule setStringValue:[NSString stringWithUTF8String:szModule]];
-//        
-//        lua_getglobal(lua, "Version");    //Version
-//        const char * szVersion = lua_tostring(lua, -1);
-//        if (!szVersion)
-//        {
-//            szVersion = "TM.V1.0.0.0";
-//        }
-//        [textVersion setStringValue:[NSString stringWithUTF8String:szVersion]];
-//        
-//        //Get global function
-//        lua_getglobal(pScriptEngine->m_pLuaState, "LoadProfile");
-//        err = lua_pcall(pScriptEngine->m_pLuaState, 0, 1, 0);
-//        if (err)
-//        {
-//            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
-//            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//        }
-//        
-//        //Read Result
-//        const char * szItem = lua_tostring(pScriptEngine->m_pLuaState, -1);
-//        NSTreeNode * items = [self ParseTestItems:[NSString stringWithUTF8String:szItem]];
-//        
-//        //Post notificaiton to updata user interface.
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@kNotificationReloadProfile object:self userInfo:[NSDictionary dictionaryWithObject:items forKey:@"items"]];
-//        
-//        //Save profile file path name
+    return  nil;
+}
+
+-(int)LoadProfile_lua:(NSString *) fileProfile
+{
+    @try {
+        
+        CScriptEngine * pScriptEngine=nil;
+        int err = 0;
+        /*
+         -----------------------------------------------------------------------
+         author:ZL Meng
+         Date:Jul.17 2015
+         Description:
+         修改测试线程数从6个改成1个
+         -----------------------------------------------------------------------
+         */
+        for (int i=0; i<UI_MODULE; i++) {
+            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
+            err = pScriptEngine->DoFile([fileProfile UTF8String]);
+            if (err)
+            {
+                NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
+                @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+            }
+        }
+        
+        lua_State  * lua = pScriptEngine->m_pLuaState;
+        
+        lua_getglobal(lua, "Module");     //Module Name
+        const char * szModule = lua_tostring(lua, -1);
+        if (!szModule)
+        {
+            szModule = "No specical the module name";
+        }
+        [textModule setStringValue:[NSString stringWithUTF8String:szModule]];
+        
+        lua_getglobal(lua, "Version");    //Version
+        const char * szVersion = lua_tostring(lua, -1);
+        if (!szVersion)
+        {
+            szVersion = "TM.V1.0.0.0";
+        }
+        [textVersion setStringValue:[NSString stringWithUTF8String:szVersion]];
+        
+        //Get global function        lua_getglobal(pScriptEngine->m_pLuaState, "LoadProfile");
+        err = lua_pcall(pScriptEngine->m_pLuaState, 0, 1, 0);
+        if (err)
+        {
+            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
+            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+        }
+        
+        //Read Result
+        const char * szItem = lua_tostring(pScriptEngine->m_pLuaState, -1);
+        NSTreeNode * items = [self ParseTestItems:[NSString stringWithUTF8String:szItem]];
+        
+        //Post notificaiton to updata user interface.
+        [[NSNotificationCenter defaultCenter]postNotificationName:@kNotificationReloadProfile object:self userInfo:[NSDictionary dictionaryWithObject:items forKey:@"items"]];
+        
+        //Save profile file path name
 //        [CTestContext::m_dicConfiguration setValue:fileProfile forKey:kConfigProfilePath];
-//        
-//        
-//    }
-//    @catch (NSException *exception) {
-//        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
-//    }
-//    return 0;
-//}
+        
+        
+    }
+    @catch (NSException *exception) {
+        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
+    }
+    return 0;
+}
 //
-//-(int)LoadProfile_Seq:(NSString *)filepath
-//{
-//    NSString * fileName = [filepath stringByDeletingPathExtension];
-//    
-//    NSString * profile = [fileName stringByAppendingPathExtension:@"imp"];
-//    
-//    int ret;
-//    if (![[NSFileManager defaultManager] fileExistsAtPath:profile])
-//    {
-//        NSRunAlertPanel(@"Load Implementation File", @"Warnning : Couldn't load implementation file, file not exist!", @"OK", nil, nil);
-//    }
-//    else
-//    {
-//        ret = [self LoadTestImplementation:profile];
-//        if (ret <0) return ret;
-//    }
-//    
-//    ret = [self LoadTestSequence:filepath];
-//    
-//    return ret;
-//}
-//
-//
-//-(int)LoadTestSequence:(NSString *)fileSequence
-//{
-//    @try {
-//        CScriptEngine * pScriptEngine=nil;
-//        int err = 0;
-//        /*
-//         -----------------------------------------------------------------------
-//         author:ZL Meng
-//         Date:Jul.17 2015
-//         Description:
-//         修改测试线程数从6个改成1个
-//         -----------------------------------------------------------------------
-//         */
-//        for (int i=0; i<UI_MODULE; i++) {
-//            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
-//            err = pScriptEngine->DoFile([fileSequence UTF8String]);
+-(int)LoadProfile_Seq:(NSString *)filepath
+{
+    NSString * fileName = [filepath stringByDeletingPathExtension];
+    
+    NSString * profile = [fileName stringByAppendingPathExtension:@"imp"];
+    
+    int ret;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:profile])
+    {
+        NSRunAlertPanel(@"Load Implementation File", @"Warnning : Couldn't load implementation file, file not exist!", @"OK", nil, nil);
+    }
+    else
+    {
+        ret = [self LoadTestImplementation:profile];
+        if (ret <0) return ret;
+    }
+    
+    ret = [self LoadTestSequence:filepath];
+    
+    return ret;
+}
+
+
+-(int)LoadTestSequence:(NSString *)fileSequence
+{
+    @try {
+        CScriptEngine * pScriptEngine=nil;
+        int err = 0;
+        /*
+         -----------------------------------------------------------------------
+         author:ZL Meng
+         Date:Jul.17 2015
+         Description:
+         修改测试线程数从6个改成1个
+         -----------------------------------------------------------------------
+         */
+        for (int i=0; i<UI_MODULE; i++) {
+            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
+            err = pScriptEngine->DoFile([fileSequence UTF8String]);
 //            if (err)
 //            {
 //                NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
 //                @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
 //            }
-//        }
-//        
-//        lua_State  * lua = pScriptEngine->m_pLuaState;
-//        
-//        lua_getglobal(lua, "__Module");     //Module Name
-//        const char * szModule = lua_tostring(lua, -1);
+        }
+        
+        lua_State  * lua = pScriptEngine->m_pLuaState;
+        
+        lua_getglobal(lua, "__Module");     //Module Name
+        const char * szModule = lua_tostring(lua, -1);
 //        if (!szModule)
 //        {
 //            lua_getglobal(lua, "Module");     //Module Name
@@ -1132,8 +1133,8 @@
 //            }
 //        }
 //        [textModule setStringValue:[NSString stringWithUTF8String:szModule]];
-//        
-//        lua_getglobal(lua, "__Version");    //Version
+        
+        lua_getglobal(lua, "__Version");    //Version
 //        const char * szVersion = lua_tostring(lua, -1);
 //        if (!szVersion)
 //        {
@@ -1145,138 +1146,139 @@
 //            }
 //        }
 //        [textVersion setStringValue:[NSString stringWithUTF8String:szVersion]];
-//        
-//        //Get global function
-//        lua_getglobal(pScriptEngine->m_pLuaState, "LoadProfile");
+        
+        //Get global function
+        lua_getglobal(pScriptEngine->m_pLuaState, "LoadProfile");
 //        err = lua_pcall(pScriptEngine->m_pLuaState, 0, 1, 0);
 //        if (err)
 //        {
 //            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
 //            @throw [NSException exceptionWithName:@"Script Error" reason:strError userInfo:nil];
 //        }
-//        
-//        //Read Result
+        
+        //Read Result
+        const char * szItem = "key\tTest Plus Items\t\t\t\t\t\t\t\nitem\t000\t1+5=\t6\t6\t\t\t\t\t\nitem\t001\t8+9=\t17\t17\t\t\t\t\t\nitem\t002\t12+69=\t81\t81\t\t\t\t\t\nitem\t003\t100+99=\t199\t199\t\t\t\t\t\nkey\tTest Minus Items\t\t\t\t\t\t\t\nitem\t004\t1-5=\t-4\t-4\t\t\t\t\t\nitem\t005\t90-8=\t82\t82\t\t\t\t\t\nitem\t006\t12-3=\t9\t9\t\t\t\t\t\nitem\t007\t1000-10000=\t-9000\t-9000\t\t\t\t\t\nkey\tTest Circle Items\t\t\t\t\t\t\t\nitem\t008\t2->6=\t20\t20\t\t\t\t\t\nitem\t009\t8->9=\t17\t17\t\t\t\t\t\nitem\t010\t3->5=\t12\t12\t\t\t\t\t\nitem\t011\t20->22=\t63\t63\t\t\t\t\t\nkey\tTest Select Items\t\t\t\t\t\t\t\nitem\t012\t1>5?\tjiade\tjiade\t\t\t\t\t\nitem\t013\t9>7?\tzhende\tzhende\t\t\t\t\t\nitem\t014\tshuaige?\t1\t1\t\t\t\t\t\nitem\t015\tyou9\tyou\tyou\t\t\t\t\t\nkey\tTestTiji_Sub\t\t\t\t\t\t\t\nitem\t016\tearth\t100\t20000000\tcm\t\t\t\t";
 //        const char * szItem = lua_tostring(pScriptEngine->m_pLuaState, -1);
-//        NSTreeNode * items = [self ParseTestItems:[NSString stringWithUTF8String:szItem]];
-//        
-//        //Post notificaiton to updata user interface.
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@kNotificationReloadProfile object:self userInfo:[NSDictionary dictionaryWithObject:items forKey:@"items"]];
-//        
-//        //Save profile file path name
+        NSTreeNode * items = [self ParseTestItems:[NSString stringWithUTF8String:szItem]];
+        
+        //Post notificaiton to updata user interface.
+        [[NSNotificationCenter defaultCenter]postNotificationName:@kNotificationReloadProfile object:self userInfo:[NSDictionary dictionaryWithObject:items forKey:@"items"]];
+        
+        //Save profile file path name
 //        [CTestContext::m_dicConfiguration setValue:fileSequence forKey:kConfigProfilePath];
-//    }
-//    @catch (NSException *exception) {
-//        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
-//        return -1;
-//    }
-//    @finally {
-//    }
-//    return 0;
-//}
+    }
+    @catch (NSException *exception) {
+        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
+        return -1;
+    }
+    @finally {
+    }
+    return 0;
+}
+
+-(int)LoadTestImplementation:(NSString *)fileSequence
+{
+    @try {
+        CScriptEngine * pScriptEngine=nil;
+        int err = 0;
+        /*
+         -----------------------------------------------------------------------
+         author:ZL Meng
+         Date:Jul.17 2015
+         Description:
+         修改测试线程数从6个改成1个
+         -----------------------------------------------------------------------
+         */
+        for (int i=0; i<UI_MODULE; i++) {
+            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
+            err = pScriptEngine->DoFile([fileSequence UTF8String]);
+            if (err)
+            {
+                NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
+                @throw [NSException exceptionWithName:@"Script Error" reason:strError userInfo:nil];
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
+        return -1;
+    }
+    @finally {
+        
+    }
+    return 0;
+}
 //
-//-(int)LoadTestImplementation:(NSString *)fileSequence
-//{
-//    @try {
-//        CScriptEngine * pScriptEngine=nil;
-//        int err = 0;
-//        /*
-//         -----------------------------------------------------------------------
-//         author:ZL Meng
-//         Date:Jul.17 2015
-//         Description:
-//         修改测试线程数从6个改成1个
-//         -----------------------------------------------------------------------
-//         */
-//        for (int i=0; i<UI_MODULE; i++) {
-//            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
-//            err = pScriptEngine->DoFile([fileSequence UTF8String]);
-//            if (err)
-//            {
-//                NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
-//                @throw [NSException exceptionWithName:@"Script Error" reason:strError userInfo:nil];
-//            }
-//        }
-//    }
-//    @catch (NSException *exception) {
-//        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
-//        return -1;
-//    }
-//    @finally {
-//        
-//    }
-//    return 0;
-//}
 //
-//
-////Parse test item from the script files.
-//-(NSTreeNode *)ParseTestItems:(NSString *) strItems
-//{
-//    // We will use the built-in NSTreeNode with a representedObject that is our model object - the SimpleNodeData object.
-//    // First, create our model object.
-//    NSString *nodeName = @"root_item";
-//    KeyItem *nodeData = [KeyItem nodeDataWithName:nodeName];
-//    // The image for the nodeData is lazily filled in, for performance.
-//    NSTreeNode *result = [NSTreeNode treeNodeWithRepresentedObject:nodeData];
-//    
-//    NSArray * steps = [strItems componentsSeparatedByString:@"\n"];     //lines
-//    NSTreeNode * keyTreeNode=nil;
-//    for (NSString * item in steps){
-//        item = [item stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        NSArray * contents = [item componentsSeparatedByString:@"\t"];  //
-//        if ([[contents objectAtIndex:0] isEqualToString:@"key"])    //KeyItem;
-//        {
-//            KeyItem * keyNodeData = [[KeyItem alloc] initWithName:[contents objectAtIndex:1]];
-//            keyTreeNode = [NSTreeNode treeNodeWithRepresentedObject:keyNodeData];
-//            [keyNodeData release];
-//            [[result mutableChildNodes]addObject:keyTreeNode];      //add to the root tree
-//        }
-//        else    //test item
-//        {
-//            NSArray  *arr = [contents subarrayWithRange:NSMakeRange(1, [contents count]-1)];
-//            
-//            if ([contents count] < 2) {
-//                continue;
-//            }
-//            
-//            NSString *index       = [arr objectAtIndex:0];
-//            NSString *description = [arr objectAtIndex:1];
-//            NSString *lower       = [arr count] > 2 ? [arr objectAtIndex:2] : nil;
-//            NSString *upper       = [arr count] > 3 ? [arr objectAtIndex:3] : nil;
-//            NSString *unit        = [arr count] > 4 ? [arr objectAtIndex:4] : nil;
-//            NSString *testkey     = [arr count] > 6 ? [arr objectAtIndex:6] : nil;
-//            
-//            BOOL waiver = NO;
-//            if ([arr count] > 7)
-//            {
-//                waiver = [[arr objectAtIndex:7] isEqualToString:@"waiver"];
-//            }
-//            
-//            
-//            TestItem * itemNodeData = [[TestItem new] autorelease];
-//            
-//            itemNodeData.index       = index;
-//            itemNodeData.description = description;
-//            itemNodeData.lower       = lower;
-//            itemNodeData.upper       = upper;
-//            itemNodeData.unit        = unit;
-//            itemNodeData.group       = [[keyTreeNode representedObject] name];
-//            itemNodeData.testkey     = testkey;
-//            itemNodeData.waiver      = waiver;
-//            
-//            
-//            NSTreeNode *itemTreeNode = [NSTreeNode treeNodeWithRepresentedObject:itemNodeData];
-//            
-//            if (keyTreeNode)
-//            {
-//                [[keyTreeNode mutableChildNodes]addObject:itemTreeNode];    //add to current key item.
-//            }
-//            else {
-//                [[result mutableChildNodes]addObject:itemTreeNode];    //add to current key item.
-//            }
-//        }
-//    }
-//    return result;
-//}
+//Parse test item from the script files.
+-(NSTreeNode *)ParseTestItems:(NSString *) strItems
+{
+    // We will use the built-in NSTreeNode with a representedObject that is our model object - the SimpleNodeData object.
+    // First, create our model object.
+    NSString *nodeName = @"root_item";
+    KeyItem *nodeData = [KeyItem nodeDataWithName:nodeName];
+    // The image for the nodeData is lazily filled in, for performance.
+    NSTreeNode *result = [NSTreeNode treeNodeWithRepresentedObject:nodeData];
+    
+    NSArray * steps = [strItems componentsSeparatedByString:@"\n"];     //lines
+    NSTreeNode * keyTreeNode=nil;
+    for (NSString * item in steps){
+        item = [item stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSArray * contents = [item componentsSeparatedByString:@"\t"];  //
+        if ([[contents objectAtIndex:0] isEqualToString:@"key"])    //KeyItem;
+        {
+            KeyItem * keyNodeData = [[KeyItem alloc] initWithName:[contents objectAtIndex:1]];
+            keyTreeNode = [NSTreeNode treeNodeWithRepresentedObject:keyNodeData];
+            [keyNodeData release];
+            [[result mutableChildNodes]addObject:keyTreeNode];      //add to the root tree
+        }
+        else    //test item
+        {
+            NSArray  *arr = [contents subarrayWithRange:NSMakeRange(1, [contents count]-1)];
+            
+            if ([contents count] < 2) {
+                continue;
+            }
+            
+            NSString *index       = [arr objectAtIndex:0];
+            NSString *description = [arr objectAtIndex:1];
+            NSString *lower       = [arr count] > 2 ? [arr objectAtIndex:2] : nil;
+            NSString *upper       = [arr count] > 3 ? [arr objectAtIndex:3] : nil;
+            NSString *unit        = [arr count] > 4 ? [arr objectAtIndex:4] : nil;
+            NSString *testkey     = [arr count] > 6 ? [arr objectAtIndex:6] : nil;
+            
+            BOOL waiver = NO;
+            if ([arr count] > 7)
+            {
+                waiver = [[arr objectAtIndex:7] isEqualToString:@"waiver"];
+            }
+            
+            
+            TestItem * itemNodeData = [[TestItem new] autorelease];
+            
+            itemNodeData.index       = index;
+            itemNodeData.description = description;
+            itemNodeData.lower       = lower;
+            itemNodeData.upper       = upper;
+            itemNodeData.unit        = unit;
+            itemNodeData.group       = [[keyTreeNode representedObject] name];
+            itemNodeData.testkey     = testkey;
+            itemNodeData.waiver      = waiver;
+            
+            
+            NSTreeNode *itemTreeNode = [NSTreeNode treeNodeWithRepresentedObject:itemNodeData];
+            
+            if (keyTreeNode)
+            {
+                [[keyTreeNode mutableChildNodes]addObject:itemTreeNode];    //add to current key item.
+            }
+            else {
+                [[result mutableChildNodes]addObject:itemTreeNode];    //add to current key item.
+            }
+        }
+    }
+    return result;
+}
 //
 //
 //#pragma mark - Manuel's Document Bundle
@@ -1307,8 +1309,8 @@
 //    return true;
 //}
 //
-//- (BOOL) finalizeLoad
-//{
+- (BOOL) finalizeLoad
+{
 //    @try {
 //        CScriptEngine * pScriptEngine=nil;
 //        char const    * all_items;
@@ -1358,7 +1360,7 @@
 //        //Post notificaiton to updata user interface.
 //        [[NSNotificationCenter defaultCenter]postNotificationName:@kNotificationReloadProfile object:self userInfo:[NSDictionary dictionaryWithObject:items forKey:@"items"]];
 //        
-//        return YES;
+        return YES;
 //    }
 //    @catch (NSException *exception) {
 //        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
@@ -1366,43 +1368,43 @@
 //    }
 //    @finally {
 //    }
-//}
+}
 //
-//-(BOOL)loadSequenceBundle_impfile:(NSString *)impfile
-//{
-//    @try {
-//        CScriptEngine *pScriptEngine = nil;
-//        /*
-//         -----------------------------------------------------------------------
-//         author:ZL Meng
-//         Date:Jul.17 2015
-//         Description:
-//         修改测试线程数从6个改成1个
-//         -----------------------------------------------------------------------
-//         */
-//        for (int i= 0; i<UI_MODULE; i++) {
-//            int err;
-//            
-//            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
-//            
-//            err = pScriptEngine->DoFile([impfile UTF8String]);
-//            
-//            if (err) {
-//                NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
-//                @throw [NSException exceptionWithName:@"Script Error" reason:strError userInfo:nil];
-//            }
-//        }
-//    }
-//    @catch (NSException *exception) {
-//        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
-//        return NO;
-//    }
-//    
-//    return YES;
-//}
+-(BOOL)loadSequenceBundle_impfile:(NSString *)impfile
+{
+    @try {
+        CScriptEngine *pScriptEngine = nil;
+        /*
+         -----------------------------------------------------------------------
+         author:ZL Meng
+         Date:Jul.17 2015
+         Description:
+         修改测试线程数从6个改成1个
+         -----------------------------------------------------------------------
+         */
+        for (int i= 0; i<UI_MODULE; i++) {
+            int err;
+            
+            pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
+            
+            err = pScriptEngine->DoFile([impfile UTF8String]);
+            
+            if (err) {
+                NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
+                @throw [NSException exceptionWithName:@"Script Error" reason:strError userInfo:nil];
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, [exception description]);
+        return NO;
+    }
+    
+    return YES;
+}
 //
-//-(BOOL)loadSequenceBundle_seqfile:(NSString *)seqfile;
-//{
+-(BOOL)loadSequenceBundle_seqfile:(NSString *)seqfile;
+{
 //    BOOL retval = YES;
 //    
 //    NSString *impfile = [[seqfile stringByDeletingPathExtension] stringByAppendingPathExtension:@"imp"];
@@ -1455,8 +1457,8 @@
 //        return NO;
 //    }
 //    
-//    return NO;
-//}
+    return NO;
+}
 //
 //- (BOOL) loadSequenceBundle_touch
 //{
@@ -1556,7 +1558,7 @@
 //}
 //
 //
-//static bool monkey_proofed = true;
+static bool monkey_proofed = true;
 //
 //- (void)clear_all:(id)sender
 //{
@@ -1588,21 +1590,21 @@
 //    }
 //}
 //
-//#define MONKEY_PROOFED 1
-//
-//- (BOOL) loadSequenceBundle_internal:(NSString *)filename
-//{
-//    NSFileManager *fmgr = [NSFileManager defaultManager];
-//    
-//    NSString *index_file = [filename stringByAppendingPathComponent:@"index.plist"];
-//    NSString *contents_dir = [filename stringByAppendingPathComponent:@"Contents"];
-//    
-//    NSString *station_file = [filename stringByAppendingPathComponent:@"station.plist"];
-//    
-//    if ([fmgr fileExistsAtPath:station_file]) {
-//        // override use of index file with station.plist's mapping
-//        NSDictionary * station_index = [NSDictionary dictionaryWithContentsOfFile:station_file];
-//        
+#define MONKEY_PROOFED 1
+
+- (BOOL) loadSequenceBundle_internal:(NSString *)filename
+{
+    NSFileManager *fmgr = [NSFileManager defaultManager];
+    
+    NSString *index_file = [filename stringByAppendingPathComponent:@"index.plist"];
+    NSString *contents_dir = [filename stringByAppendingPathComponent:@"Contents"];
+    
+    NSString *station_file = [filename stringByAppendingPathComponent:@"station.plist"];
+    
+    if ([fmgr fileExistsAtPath:station_file]) {
+        // override use of index file with station.plist's mapping
+        NSDictionary * station_index = [NSDictionary dictionaryWithContentsOfFile:station_file];
+        
 //        NSString * stationType = [CTestContext::m_dicGlobal objectForKey:kContextStationType];
 //        if (station_index && stationType)
 //        {
@@ -1613,161 +1615,161 @@
 //            }
 //            
 //        }
-//    }
-//    
-//    if (![fmgr fileExistsAtPath:index_file]) {
-//        return NO;
-//    }
-//    
-//    BOOL dir_flag;
-//    
-//    if (![fmgr fileExistsAtPath:contents_dir isDirectory:&dir_flag] || (dir_flag!= YES)) {
-//        return NO;
-//    }
-//    
-//    id loaded_index =  [NSDictionary dictionaryWithContentsOfFile:index_file];
-//    
-//    if (![loaded_index isKindOfClass:[NSDictionary class]]) {
-//        return NO;
-//    }
-//    
-//    self.loadedIndexPath = filename;
-//    
-//    bool new_index  = ![self->last_loaded_index isEqualTo:loaded_index];
-//    NSMenu  *index_menu = new_index ? [[[NSMenu alloc] initWithTitle:@"Sheet Control"] autorelease] : nil;
-//    NSArray *sequence = [loaded_index objectForKey:@"Sequence"];
-//    BOOL     retval   = YES;
-//    
-//    [self beginLoad];
-//    
-//    if (index_menu) {
-//        NSMenuItem *submenuitem = [[NSMenuItem alloc] initWithTitle:@"Sheet Control" action:nil keyEquivalent:@""];
-//        NSMenuItem *old         = [toolsMenu itemWithTitle:@"Sheet Control"];
-//        
-//        if (old) {
-//            [toolsMenu removeItem:old];
-//        }
-//        
-//        [toolsMenu addItem:submenuitem];
-//        [toolsMenu setSubmenu:index_menu forItem:submenuitem];
-//        
-//        
-//        NSMenuItem *clear_all = [[[NSMenuItem alloc] initWithTitle:@"Clear all" action:@selector(clear_all:) keyEquivalent:@""] autorelease];
-//        NSMenuItem *separator = [NSMenuItem separatorItem];
-//        
-//        [clear_all setTarget:self];
-//        
-//        [index_menu addItem:clear_all];
-//        [index_menu addItem:separator];
-//    }
-//    
-//    for (id i in sequence) {
-//        NSString *name      = [i stringByDeletingPathExtension];
-//        NSString *extension = [[i pathExtension] uppercaseString];
-//        
-//        if (index_menu && [extension isEqualTo:@"SEQ"]) {
-//            NSMenuItem *mitem = [[NSMenuItem alloc] initWithTitle:name action:@selector(on_off:) keyEquivalent:@""];
-//            
-//            [mitem setTarget:self];
-//            [mitem setState:true];
-//            
-//            [index_menu addItem:mitem];
-//        }
-//    }
-//    
-//    [loaded_index retain];
-//    [self->last_loaded_index release];
-//    self->last_loaded_index = loaded_index;
-//    
-//    
-//    for (id i in sequence) {
-//        if (![i isKindOfClass:[NSString class]]) {
-//            retval = NO;
-//            continue;
-//        }
-//        
-//        NSString *file_to_load = [contents_dir stringByAppendingPathComponent:i];
-//        NSString *name         = [i stringByDeletingPathExtension];
-//        NSString *extension    = [[file_to_load pathExtension] uppercaseString];
-//        
-//        if ([extension isEqualTo:@"IMP"]) {
-//            retval &= [self loadSequenceBundle_impfile:file_to_load];
-//        } else if ([extension isEqualTo:@"LUA"]) {
-//            retval &= [self loadSequenceBundle_impfile:file_to_load];
-//        } else if ([extension isEqualTo:@"SEQ"]) {
-//            if ([[[[toolsMenu itemWithTitle:@"Sheet Control"] submenu] itemWithTitle:name] state] || monkey_proofed) {
-//                retval &= [self loadSequenceBundle_seqfile:file_to_load];
-//            }
-//        } else {
-//            NSRunAlertPanel(@"What you say?", @"Treating '%@; file as a Lua file", @"OK", nil, nil, i);
-//            retval &= [self loadSequenceBundle_impfile:file_to_load];
-//        }
-//    }
-//    
-//    monkey_proofed = true;
-//    
-//    NSString *modname    = [loaded_index objectForKey:@"Module"];
-//    NSString *modversion = [loaded_index objectForKey:@"Version"];
-//    
-//    modname = modname ? modname : @"Call me Ishmael";
-//    modversion = modversion ? modversion : @"3.14156";
-//    
-//    [textModule setStringValue:modname];
-//    [textVersion setStringValue:modversion];
-//    /*
-//     -----------------------------------------------------------------------
-//     author:ZL Meng
-//     Date:Jul.17 2015
-//     Description:
-//     修改测试线程数从6个改成1个
-//     -----------------------------------------------------------------------
-//     */
-//    for (int i = 0; i < UI_MODULE ; i++) {
-//        CScriptEngine *pScriptEngine;
-//        
-//        pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
-//        
-//        lua_pushstring(pScriptEngine->m_pLuaState, [modname UTF8String]);
-//        lua_setglobal(pScriptEngine->m_pLuaState, "Module");
-//        
-//        lua_pushstring(pScriptEngine->m_pLuaState, [modversion UTF8String]);
-//        lua_setglobal(pScriptEngine->m_pLuaState, "Version");
-//        
-//        lua_pushinteger(pScriptEngine->m_pLuaState, i);
-//        lua_setglobal(pScriptEngine->m_pLuaState, "FixtureSlot");
-//        
-//        lua_pushstring(pScriptEngine->m_pLuaState, [[self->textFixtureID stringValue] UTF8String]);
-//    }
-//    
-//    retval &= [self finalizeLoad];
-//    
-//    
-//    //Save profile file path name
+    }
+    
+    if (![fmgr fileExistsAtPath:index_file]) {
+        return NO;
+    }
+    
+    BOOL dir_flag;
+    
+    if (![fmgr fileExistsAtPath:contents_dir isDirectory:&dir_flag] || (dir_flag!= YES)) {
+        return NO;
+    }
+    
+    id loaded_index =  [NSDictionary dictionaryWithContentsOfFile:index_file];
+    
+    if (![loaded_index isKindOfClass:[NSDictionary class]]) {
+        return NO;
+    }
+    
+    self.loadedIndexPath = filename;
+    
+    bool new_index  = ![self->last_loaded_index isEqualTo:loaded_index];
+    NSMenu  *index_menu = new_index ? [[[NSMenu alloc] initWithTitle:@"Sheet Control"] autorelease] : nil;
+    NSArray *sequence = [loaded_index objectForKey:@"Sequence"];
+    BOOL     retval   = YES;
+    
+    [self beginLoad];
+    
+    if (index_menu) {
+        NSMenuItem *submenuitem = [[NSMenuItem alloc] initWithTitle:@"Sheet Control" action:nil keyEquivalent:@""];
+        NSMenuItem *old         = [toolsMenu itemWithTitle:@"Sheet Control"];
+        
+        if (old) {
+            [toolsMenu removeItem:old];
+        }
+        
+        [toolsMenu addItem:submenuitem];
+        [toolsMenu setSubmenu:index_menu forItem:submenuitem];
+        
+        
+        NSMenuItem *clear_all = [[[NSMenuItem alloc] initWithTitle:@"Clear all" action:@selector(clear_all:) keyEquivalent:@""] autorelease];
+        NSMenuItem *separator = [NSMenuItem separatorItem];
+        
+        [clear_all setTarget:self];
+        
+        [index_menu addItem:clear_all];
+        [index_menu addItem:separator];
+    }
+    
+    for (id i in sequence) {
+        NSString *name      = [i stringByDeletingPathExtension];
+        NSString *extension = [[i pathExtension] uppercaseString];
+        
+        if (index_menu && [extension isEqualTo:@"SEQ"]) {
+            NSMenuItem *mitem = [[NSMenuItem alloc] initWithTitle:name action:@selector(on_off:) keyEquivalent:@""];
+            
+            [mitem setTarget:self];
+            [mitem setState:true];
+            
+            [index_menu addItem:mitem];
+        }
+    }
+    
+    [loaded_index retain];
+    [self->last_loaded_index release];
+    self->last_loaded_index = loaded_index;
+    
+    
+    for (id i in sequence) {
+        if (![i isKindOfClass:[NSString class]]) {
+            retval = NO;
+            continue;
+        }
+        
+        NSString *file_to_load = [contents_dir stringByAppendingPathComponent:i];
+        NSString *name         = [i stringByDeletingPathExtension];
+        NSString *extension    = [[file_to_load pathExtension] uppercaseString];
+        
+        if ([extension isEqualTo:@"IMP"]) {
+            retval &= [self loadSequenceBundle_impfile:file_to_load];
+        } else if ([extension isEqualTo:@"LUA"]) {
+            retval &= [self loadSequenceBundle_impfile:file_to_load];
+        } else if ([extension isEqualTo:@"SEQ"]) {
+            if ([[[[toolsMenu itemWithTitle:@"Sheet Control"] submenu] itemWithTitle:name] state] || monkey_proofed) {
+                retval &= [self loadSequenceBundle_seqfile:file_to_load];
+            }
+        } else {
+            NSRunAlertPanel(@"What you say?", @"Treating '%@; file as a Lua file", @"OK", nil, nil, i);
+            retval &= [self loadSequenceBundle_impfile:file_to_load];
+        }
+    }
+    
+    monkey_proofed = true;
+    
+    NSString *modname    = [loaded_index objectForKey:@"Module"];
+    NSString *modversion = [loaded_index objectForKey:@"Version"];
+    
+    modname = modname ? modname : @"Call me Ishmael";
+    modversion = modversion ? modversion : @"3.14156";
+    
+    [textModule setStringValue:modname];
+    [textVersion setStringValue:modversion];
+    /*
+     -----------------------------------------------------------------------
+     author:ZL Meng
+     Date:Jul.17 2015
+     Description:
+     修改测试线程数从6个改成1个
+     -----------------------------------------------------------------------
+     */
+    for (int i = 0; i < UI_MODULE ; i++) {
+        CScriptEngine *pScriptEngine;
+        
+        pScriptEngine = (CScriptEngine *)[m_pTestEngine GetScripEngine:i];
+        
+        lua_pushstring(pScriptEngine->m_pLuaState, [modname UTF8String]);
+        lua_setglobal(pScriptEngine->m_pLuaState, "Module");
+        
+        lua_pushstring(pScriptEngine->m_pLuaState, [modversion UTF8String]);
+        lua_setglobal(pScriptEngine->m_pLuaState, "Version");
+        
+        lua_pushinteger(pScriptEngine->m_pLuaState, i);
+        lua_setglobal(pScriptEngine->m_pLuaState, "FixtureSlot");
+        
+        lua_pushstring(pScriptEngine->m_pLuaState, [[self->textFixtureID stringValue] UTF8String]);
+    }
+    
+    retval &= [self finalizeLoad];
+    
+    
+    //Save profile file path name
 //    [CTestContext::m_dicConfiguration setValue:filename forKey:kConfigProfilePath];
-//    
-//    return retval;
-//}
-//
-//- (int) loadSequenceBundle:(NSString *)filename
-//{
-//    BOOL retval;
-//    
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:filename]) {
-//        retval = [self loadSequenceBundle_internal:filename];
-//    } else {
-//        NSBundle *mb = [NSBundle mainBundle];
-//        NSString *mbp = [mb bundlePath];
-//        NSString *profiledir = [[mbp stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"profile"];
-//        NSString *new_filename = [profiledir stringByAppendingPathComponent:filename];
-//        retval = [self loadSequenceBundle_internal:new_filename];
-//    }
-//    
-//    if (!retval) {
-//        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, @"Malformed .IASeq file");
-//    }
-//    
-//    return retval ? 0 : -1;
-//}
+    
+    return retval;
+}
+
+- (int) loadSequenceBundle:(NSString *)filename
+{
+    BOOL retval;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filename]) {
+        retval = [self loadSequenceBundle_internal:filename];
+    } else {
+        NSBundle *mb = [NSBundle mainBundle];
+        NSString *mbp = [mb bundlePath];
+        NSString *profiledir = [[mbp stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"profile"];
+        NSString *new_filename = [profiledir stringByAppendingPathComponent:filename];
+        retval = [self loadSequenceBundle_internal:new_filename];
+    }
+    
+    if (!retval) {
+        NSRunAlertPanel(@"Load Error", @"%@", @"OK", nil, nil, @"Malformed .IASeq file");
+    }
+    
+    return retval ? 0 : -1;
+}
 //
 //#pragma mark - check barcode state
 //-(int)CheckBarcodeState
@@ -2629,8 +2631,8 @@
 //    [textPromptLog setString:@""];
 //    return 0;
 //}
-//-(void)OnEngineNotification:(NSNotification *)nf
-//{
+-(void)OnEngineNotification:(NSNotification *)nf
+{
 //    if ([[nf name] isEqualToString:kNotificationOnEngineStart])
 //    {
 //        //global ui update
@@ -2723,7 +2725,7 @@
 //            }
 //        }
 //    }
-//}
+}
 //
 //#pragma mark Menu Auto Enable
 //- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem

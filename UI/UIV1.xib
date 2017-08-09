@@ -703,6 +703,10 @@ READY</string>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="Tme-EU-bPJ" id="cwi-qi-gwh"/>
+                                                        <outlet property="delegate" destination="Tme-EU-bPJ" id="hen-uv-SlK"/>
+                                                    </connections>
                                                 </outlineView>
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -729,17 +733,17 @@ READY</string>
                                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-aI-gPU">
                                         <rect key="frame" x="0.0" y="0.0" width="900" height="111"/>
                                         <clipView key="contentView" ambiguous="YES" id="npa-Z1-fDh">
-                                            <rect key="frame" x="1" y="1" width="882" height="109"/>
+                                            <rect key="frame" x="1" y="1" width="898" height="109"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" findStyle="panel" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="sUV-Mz-THm">
-                                                    <rect key="frame" x="0.0" y="0.0" width="882" height="109"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="898" height="109"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="882" height="109"/>
+                                                    <size key="minSize" width="898" height="109"/>
                                                     <size key="maxSize" width="904" height="10000000"/>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="882" height="109"/>
+                                                    <size key="minSize" width="898" height="109"/>
                                                     <size key="maxSize" width="904" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -750,7 +754,7 @@ READY</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="F2C-jG-ods">
-                                            <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
+                                            <rect key="frame" x="883" y="1" width="16" height="109"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -961,7 +965,12 @@ GRR!!!</string>
                 <outlet property="initialFirstResponder" destination="KQF-OC-4FC" id="91z-hs-y0v"/>
             </connections>
         </window>
-        <customObject id="Qw7-hk-H1n" customClass="uiMainWndDelegate"/>
+        <customObject id="Qw7-hk-H1n" customClass="uiMainWndDelegate">
+            <connections>
+                <outlet property="btnShowFailOnly" destination="P9a-ga-xUY" id="XK6-Om-aYg"/>
+                <outlet property="outlineView" destination="BiC-Pz-3db" id="kmb-xI-Cmd"/>
+            </connections>
+        </customObject>
         <window title="Scan SN" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="gfO-Im-xvG" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -2275,6 +2284,11 @@ Gw
                 </subviews>
             </view>
         </window>
+        <customObject id="Tme-EU-bPJ" customClass="uiOutlineViewDataSource">
+            <connections>
+                <outlet property="outlineView" destination="BiC-Pz-3db" id="Etj-Bi-IK8"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="Intelligent" width="183" height="54"/>

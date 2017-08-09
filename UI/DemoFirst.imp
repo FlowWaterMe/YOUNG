@@ -1,0 +1,53 @@
+
+Module="Demo Test"
+Version="Demo Test 2015-11-18"				--Version
+
+
+function Test_OnEntry(par)
+	local str1back="5.0131"
+	local str2back="5.0451"
+	local str3back="5.4431"
+	local str4back="5.1231"
+	local str5back="5.5631"
+	local str6back="5.7831"
+	local strback=str1back.."  "..str2back..'\r'..str3back.."  "..str4back..'\r'..str5back.."  "..str6back
+	msgbox("测试程序开始时执行了",strback,nil,nil,nil);
+end
+
+
+function Test_OnFail(par)
+	msgbox("测试失败时执行了","提示",nil,nil,nil);
+end
+
+function Test_OnDone(par)
+	msgbox("测试完成时执行了","提示",nil,nil,nil);
+end
+
+function Test_OnAbort(par)		--Clear function for test failed,you can add clear function code in here when test failed.
+	msgbox("测试中止时执行了","提示",nil,nil,nil);
+end
+
+
+function ReadFile(file_path)
+	local ret = nil;
+	local path = file_path;
+	local f = io.open(path, "r");
+	if f == nil then return nil, "failed to open file at: "..path; end
+	ret = f:read("*all");
+	f:close();
+	return ret;
+end
+
+function folder_check(par)		--check the folder,whether it is exist or not.
+	local folder = par;
+	local ret = nil;
+	ret = os.execute("cd "..folder);
+	if tonumber(ret) > 0 then	--the folder is not exist
+		os.execute("mkdir "..folder);			--create the folder
+	end
+end
+
+
+
+
+
