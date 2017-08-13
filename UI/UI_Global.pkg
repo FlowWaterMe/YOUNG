@@ -1,0 +1,20 @@
+#pragma once
+$#import "UI_Global.h"
+
+extern CUserInterface * UI;
+
+typedef enum __DEBUG_ACTION {
+    DEBUG_SKIP = -1,        //Skip current item
+    DEBUG_DISABLE,
+    DEBUG_STEP,
+    DEBUG_RUN,
+    DEBUG_RETEST,
+    DEBUG_ABORT,
+}DEBUG_STATUS;
+
+//脚本导出全局变量及函数头文件
+extern DEBUG_STATUS DEBUG_CMD;
+
+int pause();
+int resume();
+int CheckBreakPoints(char * index);

@@ -7,7 +7,7 @@
 //
 
 #import "GT_Engine.h"
-
+#import "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/Common.h"
 @implementation GT_Engine
 
 -(id)init
@@ -40,7 +40,7 @@
         [self RegisterString:[str UTF8String]];
         NSString * pathScript = [bundle resourcePath];
         //[self RegisterScript:[pathScript stringByAppendingPathComponent:@"global.lua"]];
-        [self RegisterScript:[pathScript stringByAppendingPathComponent:@"execute.lua"]];
+        [self RegisterScript:[pathScript stringByAppendingPathComponent:@"Execute.lua"]];
         [self RegisterScript:[pathScript stringByAppendingPathComponent:@"TestSupport.lua"]];
     }
     return self;
@@ -165,97 +165,97 @@
     [[NSFileManager defaultManager] removeItemAtPath:@"/tmp/TestManagerStop.tmp" error:nil];
 //
     NSString * dicKey[] = {@kEngineUUT0Enable,@kEngineUUT1Enable,@kEngineUUT2Enable,@kEngineUUT3Enable,@kEngineUUT4Enable,@kEngineUUT5Enable,@kEngineUUT6Enable,@kEngineUUT7Enable};
-//
-//    for (int i=0;i<=UUT_MODULE-1;i++)
-//    {
+
+    for (int i=0;i<=UUT_MODULE-1;i++)
+    {
 //        id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
 //        if (en)
 //        {
 //            if (![en intValue])         //Skip Test
 //                continue;
 //        }
-//        
-//        m_ModuleTesting++;
-//        
-//        NSNumber * numEngine = [NSNumber numberWithLong:(long)m_ScriptEngine[i]];
-//        NSNumber * numID = [NSNumber numberWithLong:i];
-//        
-//        NSDictionary * dicPar = [NSDictionary dictionaryWithObjectsAndKeys:numEngine,@"engine",numID,@"id", nil];
-//        [threadUintTest[i] release];
-//        threadUintTest[i]= [[NSThread alloc]initWithTarget:self selector:@selector(TestEntry:) object:dicPar];
-//        
-//        [self RegisterUUT_Variant:i];
-//        
-//        //post notification start test
-//        NSDictionary * dicProcess = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i],KEY_FIXTURE_ID,[NSNumber numberWithInt:TEST_PROCESS_START],KEY_TEST_PROCESS,nil];
-//        
+        
+        m_ModuleTesting++;
+        
+        NSNumber * numEngine = [NSNumber numberWithLong:(long)m_ScriptEngine[i]];
+        NSNumber * numID = [NSNumber numberWithLong:i];
+        
+        NSDictionary * dicPar = [NSDictionary dictionaryWithObjectsAndKeys:numEngine,@"engine",numID,@"id", nil];
+        [threadUintTest[i] release];
+        threadUintTest[i]= [[NSThread alloc]initWithTarget:self selector:@selector(TestEntry:) object:dicPar];
+        
+        [self RegisterUUT_Variant:i];
+        
+        //post notification start test
+        NSDictionary * dicProcess = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i],KEY_FIXTURE_ID,[NSNumber numberWithInt:TEST_PROCESS_START],KEY_TEST_PROCESS,nil];
+        
 //        [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnEngineStart object:nil userInfo:dicProcess];
-//        
-//        [[threadUintTest[i] threadDictionary] removeAllObjects];
-//        [threadUintTest[i] start];
-//    }
-//    
-//    //wait all thread done
-//    BOOL bAllDone=TRUE;
-//    while (1) {
-//        [NSThread sleepForTimeInterval:0.1];
-//        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate date]];
-//        
-//        bAllDone = YES;
-//        for (int i=0;i<=UUT_MODULE-1;i++)
-//        {
-//            if ([threadUintTest[i] isExecuting])
-//            {
-//                bAllDone = NO;
-//                break;
-//            }
-//        }
-//        
-//        if (!bAllDone)
-//        {
-//            continue;
-//        }
-//        
-//        //all uut has finish test...
-//        //place clear code in here
-//        //NSRunAlertPanel(@"All UUT Done", @"All uut has test done.", @"OK", nil, nil);
-//        
-//        BOOL bAbort = NO;
-//        for (int i=0;i<=UUT_MODULE-1;i++)
-//        {
+        
+        [[threadUintTest[i] threadDictionary] removeAllObjects];
+        [threadUintTest[i] start];
+    }
+    
+    //wait all thread done
+    BOOL bAllDone=TRUE;
+    while (1) {
+        [NSThread sleepForTimeInterval:0.1];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate date]];
+        
+        bAllDone = YES;
+        for (int i=0;i<=UUT_MODULE-1;i++)
+        {
+            if ([threadUintTest[i] isExecuting])
+            {
+                bAllDone = NO;
+                break;
+            }
+        }
+        
+        if (!bAllDone)
+        {
+            continue;
+        }
+        
+        //all uut has finish test...
+        //place clear code in here
+        //NSRunAlertPanel(@"All UUT Done", @"All uut has test done.", @"OK", nil, nil);
+        
+        BOOL bAbort = NO;
+        for (int i=0;i<=UUT_MODULE-1;i++)
+        {
 //            id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
 //            if (en)
 //            {
 //                if (![en intValue])         //Skip Test
 //                    continue;
 //            }
-//            if ([threadUintTest[i] isCancelled])
-//            {
-//                bAbort = YES;
-//            }
-//        }
-//        
-//        if (bAbort) //test sequence has been aborted.
-//        {
-//            //do nothing...
-//            NSLog(@"Test sequence has been stop,all UUT test data will not save.");
-//        }
-//        else
-//        {
-//            for (int i=0;i<=UUT_MODULE-1;i++)
-//            {
+            if ([threadUintTest[i] isCancelled])
+            {
+                bAbort = YES;
+            }
+        }
+        
+        if (bAbort) //test sequence has been aborted.
+        {
+            //do nothing...
+            NSLog(@"Test sequence has been stop,all UUT test data will not save.");
+        }
+        else
+        {
+            for (int i=0;i<=UUT_MODULE-1;i++)
+            {
 //                id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
 //                if (en)
 //                {
 //                    if (![en intValue])         //Skip Test
 //                        continue;
 //                }
-//                
+                
 //                NSMutableDictionary * dic = m_pTestContext[i]->m_dicContext;
 //                id isbreak = [dic valueForKey:@"IsTestBreak?"];
 //                if ([isbreak boolValue])   //test has been break with exception
 //                {
-//                    //NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test abort!",i], @"OK", nil, nil);
+                    //NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test abort!",i], @"OK", nil, nil);
 //                    NSLog(@"UUT%d test has been aborted! will don't save any data.",i);
 //                }
 //                else
@@ -270,12 +270,12 @@
 //                    }
 //                    NSLog(@"UUT%d test finished! test data will save normally.",i);
 //                }
-//            }
-//        }
-//        break;//while(1)
-//    }
-//    
-//    //All done;
+            }
+        }
+        break;//while(1)
+    }
+    
+    //All done;
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnEngineFinish object:nil userInfo:nil];
 }
 
@@ -464,57 +464,57 @@
 
 -(void)TestEntry:(id)sender
 {
-//    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc]init]; //自动释放池
-//    NSDictionary * dicPar = (NSDictionary *)sender;
-//    CScriptEngine * pEngine = (CScriptEngine *)[[dicPar valueForKey:@"engine"]longValue];
-//    long idUUT = [[dicPar valueForKey:@"id"] longValue];
-//    
-//    @try {
-//        int err = pEngine->DoString("main()");  //Goto Main Function
-//        if (err!=0)
-//        {
-//            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pEngine->m_pLuaState, -1)];
-//            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
-//        }
-//    }
-//    @catch (NSException *exception) {
-//        int err;
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc]init]; //自动释放池
+    NSDictionary * dicPar = (NSDictionary *)sender;
+    CScriptEngine * pEngine = (CScriptEngine *)[[dicPar valueForKey:@"engine"]longValue];
+    long idUUT = [[dicPar valueForKey:@"id"] longValue];
+
+    @try {
+        int err = pEngine->DoString("main()");  //Goto Main Function
+        if (err!=0)
+        {
+            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pEngine->m_pLuaState, -1)];
+            @throw [NSException exceptionWithName:@"Lua Error" reason:strError userInfo:nil];
+        }
+    }
+    @catch (NSException *exception) {
+        int err;
 //        [m_pTestContext[idUUT]->m_dicContext setValue:[NSNumber numberWithBool:YES] forKey:@"IsTestBreak?"];
-//        if ([[exception name] isEqualToString:kNotificationDoTestStop]) //test sequence has been cancelled
-//        {
-//            //err = pEngine->DoString("Test_OnFail()");
-//            err = pEngine->DoString("if (Test_OnAbort) then Test_OnAbort(); end");
-//            err = pEngine->DoString("UUT_ABORT(ID)");
-//            [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnTestStop object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLong:idUUT],@"id",nil]];
-//        }
-//        else {
-//            //err = pEngine->DoString("Test_OnFail()");
-//            err = pEngine->DoString("if (Test_OnAbort) then Test_OnAbort(); end");
-//            NSString * strLog = [NSString stringWithFormat:@"Error : %@ Reason:%@",[exception name],[exception reason]];
-//            NSLog(@"%@",strLog);
+        if ([[exception name] isEqualToString:kNotificationDoTestStop]) //test sequence has been cancelled
+        {
+            //err = pEngine->DoString("Test_OnFail()");
+            err = pEngine->DoString("if (Test_OnAbort) then Test_OnAbort(); end");
+            err = pEngine->DoString("UUT_ABORT(ID)");
+            [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnTestStop object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLong:idUUT],@"id",nil]];
+        }
+        else {
+            //err = pEngine->DoString("Test_OnFail()");
+            err = pEngine->DoString("if (Test_OnAbort) then Test_OnAbort(); end");
+            NSString * strLog = [NSString stringWithFormat:@"Error : %@ Reason:%@",[exception name],[exception reason]];
+            NSLog(@"%@",strLog);
 //            //        [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationLog object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:strLog,@"msg",[NSNumber numberWithInt:idUUT],@"id", nil]];
 //            [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnTestError object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:strLog,@"msg",[NSNumber numberWithLong:idUUT],@"id", nil]];
-//            err = pEngine->DoString("UUT_ABORT(ID)");
-//        }
-//    }
-//    
-//    OSAtomicIncrement32(&m_ModuleFinish);   //this module has finish
-//    if (m_ModuleFinish>=m_ModuleTesting)    //All Module Has finished
-//    {
-//        //move to threadManager
-//        //[[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnEngineFinish object:nil userInfo:nil];
-//    }
-//    
-//    //
-//    
-//    int err = pEngine->DoString("dut.UnlockAllMyInstrument()");
-//    err = pEngine->DoString("UnlockAllInstrument()");
-//    err = pEngine->DoString("unlock()");
-//    
-//    //need?
-//    //    err = pEngine->DoString("UUT_ABORT(ID)");
-//    
-//    [pool release];
+            err = pEngine->DoString("UUT_ABORT(ID)");
+        }
+    }
+    
+    OSAtomicIncrement32(&m_ModuleFinish);   //this module has finish
+    if (m_ModuleFinish>=m_ModuleTesting)    //All Module Has finished
+    {
+        //move to threadManager
+        //[[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnEngineFinish object:nil userInfo:nil];
+    }
+    
+    //
+    
+    int err = pEngine->DoString("dut.UnlockAllMyInstrument()");
+    err = pEngine->DoString("UnlockAllInstrument()");
+    err = pEngine->DoString("unlock()");
+    
+    //need?
+    //    err = pEngine->DoString("UUT_ABORT(ID)");
+    
+    [pool release];
     
 }
 @end

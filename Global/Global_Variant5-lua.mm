@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Global_Variant5
-** Generated automatically by tolua++-1.0.92 on Tue Aug  8 21:03:28 2017.
+** Generated automatically by tolua++-1.0.92 on Thu Aug 10 10:58:15 2017.
 */
 
 #ifndef __cplusplus

@@ -7,10 +7,10 @@
 //
 
 #import "GT_UserInterface.h"
-//#include <lua.hpp>
-//#include <tolua++.h>
+#include <lua.hpp>
+#include <tolua++.h>
 //
-//#include "UI_Global.h"
+#include "UI_Global.h"
 //#include "Corelib/TestItem.h"
 @implementation GT_UserInterface
 #define Config_File @"config.plist"
@@ -36,14 +36,26 @@ NSTreeNode * items = nil;
 {
     return @"Tester User Interface.";
 }
+TOLUA_API int tolua_UI_Global_open (lua_State* tolua_S);
+TOLUA_API int  tolua_UserInterface_open (lua_State* tolua_S);
 
 -(int)RegisterModule:(id)sender     //登记模块
 {
     NSMutableDictionary * dic = (NSMutableDictionary *)sender;
     [dic setValue:instrMenu forKey:@"menuInstruments"];
-//    lua_State * lua = (lua_State *)[[dic objectForKey:@"lua"] longValue];
+    lua_State * lua = (lua_State *)[[dic objectForKey:@"lua"] longValue];
     m_pTestEngine = [dic objectForKey:@"TestEngine"];
+    //Get Test Context
+    pTestContext0 = (CTestContext *)[m_pTestEngine GetTestContext:0];
+    pTestContext1 = (CTestContext *)[m_pTestEngine GetTestContext:1];
+    pTestContext2 = (CTestContext *)[m_pTestEngine GetTestContext:2];
+    pTestContext3 = (CTestContext *)[m_pTestEngine GetTestContext:3];
+    pTestContext4 = (CTestContext *)[m_pTestEngine GetTestContext:4];
+    pTestContext5 = (CTestContext *)[m_pTestEngine GetTestContext:5];
+  
     
+    tolua_UserInterface_open(lua);
+    tolua_UI_Global_open(lua);
     
     int fixtureid = 0;//[[dic objectForKey:@"id"] intValue];
     NSBundle * bundle = [NSBundle bundleForClass:[self class]];

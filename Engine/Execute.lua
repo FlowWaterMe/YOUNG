@@ -34,7 +34,34 @@ ERROR=-1;
 WAIVED=4;
 
 uutsku={};
-
+function Log( par1,par2 )
+if par1 == nil then
+print(12345)
+return 0
+end
+print(par1)
+end
+function skip(  )
+-- body
+Log("skip fuck u");
+end
+function DbgLog( par1,par2 )
+-- body
+Log(par1);
+end
+function CheckBreakPoints( par )
+-- body
+print("CheckBreakPoints *****************")
+return -1
+end
+function pause( ... )
+-- body
+print("stop *****************")
+end
+function Now( ... )
+-- body
+return os.date()
+end
 function DbgOut(fmt,...)
 if (DEBUG ~=0) then
 local tf = {...};
@@ -58,6 +85,7 @@ end
 
 local EN_DEBUG = 0;
 function Entry(fun,...)		--Log Function
+print("Entry")
 if (EN_DEBUG == 0) then return; end
 str = tostring(fun);
 if(...) then
@@ -187,6 +215,7 @@ end
 
 local steps=-1;
 local function Excute_Item(item)
+print("Excute_Item")
 Entry("Entry \""..item.name.."\" Item");		--Log message
 this=item;
 local value=0;
@@ -356,7 +385,7 @@ function DoTest(ti)	--测试主循环入口TestEntry,执行test sequence
 --	sfasfsdf();
 --local test_result = PASS;
 for index,value in ipairs(ti) do
-TestCancel();	--test has been cancel or not
+--TestCancel();	--test has been cancel or not
 --		UUT_SYNCH(ID);
 --处理Debug消息
 
@@ -365,17 +394,17 @@ TestFlowOut("==SubTest: %s", pdcaname(value));
 steps=steps+1;
 else
 TestFlowOut("==Test: %s",pdcaname(value));		--Key item
-end
-if (DEBUG_CMD == DEBUG_DISABLE) then
---Do Nothing...
-elseif (DEBUG_CMD==DEBUG_STEP) then		--Step
-if (value.sub==nil) then
-pause();	--不是key item
-end
-else
-if (CheckBreakPoints(tostring(value.name))>0) then		--Capture break point
-pause();
-end
+-- end
+-- if (DEBUG_CMD == DEBUG_DISABLE) then
+-- --Do Nothing...
+-- elseif (DEBUG_CMD==DEBUG_STEP) then		--Step
+-- if (value.sub==nil) then
+-- pause();	--不是key item
+-- end
+-- else
+-- if (CheckBreakPoints(tostring(value.name))>0) then		--Capture break point
+-- pause();
+-- end
 end
 
 
@@ -419,13 +448,13 @@ isskip = false;
 end
 end
 end
-
-if (isskip or skip_curr_block) then		--this item should be skipped
-DbgOut(value.name.." has been skipped for this item");
-ret,state,display = nil,2,"Skipped";
-value.value="Skipped";
-value.state=state;		--2013-08-05,should update
-else
+print(111111111111)
+-- if (isskip or skip_curr_block) then		--this item should be skipped
+-- DbgOut(value.name.." has been skipped for this item");
+-- ret,state,display = nil,2,"Skipped";
+-- value.value="Skipped";
+-- value.state=state;		--2013-08-05,should update
+-- else
 ---[[
 ret,state,display = Excute_Item(value);	--Execute test item entry function, and check the return value.
 if ((value.visible==0) or (value.visible==false)) then
@@ -437,7 +466,7 @@ ret = tostring(ret);
 end
 value.value=ret;
 value.state=state;
-end
+-- end
 
 --record test result and storage
 if (state<=0) then
@@ -715,7 +744,7 @@ ConfigureLimitForItemBySKU:
 Switches item.lower and item.upper to sku specific value if available.
 --]]
 function ConfigureLimitForItemBySKU(item)
-
+print("ConfigureLimitForItemBySKU")
 if (item["skulimit"]) then
 
 -- default to ... "default".
@@ -747,7 +776,7 @@ end
 end
 
 function ConfigureWaiverForItemBySKU(item)
-
+print("ConfigureWaiverForItemBySKU")
 if (item["skuwaiver"]) then
 
 -- default no waiver.
@@ -786,10 +815,10 @@ test_result = PASS;
 initialTest(items);
 ui.TEST_START();		--Update UI to start test
 Test_OnEntry();		--Call
-dl.InitialReport(tc.mlbSN())
+--dl.InitialReport(tc.mlbSN())
 --	dl.ClearBuffer();
 --	dl.BuildCsvLogFileHeader(items);	--build csv log
-local ret = DoTest(items);		--do test
+local ret = "skip"--DoTest(items);		--do test
 DbgOut("result : %d",tonumber(ret));
 DbgOut("Fail Item : \r\n"..table.concat(ItemFail,","));
 DbgOut("Fail Item But is WAIVED : \r\n"..table.concat(ItemFailWaived,","));

@@ -12,70 +12,14 @@ local t={};
 local tree={};
 local sep="\t"		--字符串分隔符，每一个测试项目用\n份分隔，每一项里面各个内容用该字符分隔。
 local steps=0;
+
+
+
+
+
 local function BuildItemTree(its)
 for index,value in ipairs(its) do
 local line=nil;
-
-Module="DemoFirst Test"
-Version="DemoFirst Test 2015-11-18"				--Version
-
-
-local TestDebugPlusItems_Sub = {
-{name="1+5=",lower=6,upper=6,unit=nil,entry=PlusCalc,parameter={jiashu = 5, beijiashu = 1},sub=nil,visible=1,skip=nil},
-{name="8+9=",lower=17,upper=17,unit=nil,entry=PlusCalc,parameter={jiashu = 9, beijiashu = 8},sub=nil,visible=1,skip=nil},
-{name="12+69=",lower=81,upper=81,unit=nil,entry=PlusCalc,parameter={jiashu = 69, beijiashu = 12},sub=nil,visible=1,skip=nil},
-{name="100+99=",lower=199,upper=199,unit=nil,entry=PlusCalc,parameter={jiashu = 99, beijiashu = 100},sub=nil,visible=1,skip=nil}
-};
-local TestDebugPlusItems={name="Test Plus Items",entry=nil,parameter=nil,sub=TestDebugPlusItems_Sub};
-
-local TestDebugMinusItems_Sub = {
-{name="1-5=",lower=-4,upper=-4,unit=nil,entry=MinusCalc,parameter={beijianshu = 1, jianshu = 5},sub=nil,visible=1,skip=nil},
-{name="90-8=",lower=82,upper=82,unit=nil,entry=MinusCalc,parameter={beijianshu = 90, jianshu = 8},sub=nil,visible=1,skip=nil},
-{name="12-3=",lower=9,upper=9,unit=nil,entry=MinusCalc,parameter={beijianshu = 12, jianshu = 3},sub=nil,visible=1,skip=nil},
-{name="1000-10000=",lower=-9000,upper=-9000,unit=nil,entry=MinusCalc,parameter={beijianshu = 1000, jianshu = 10000},sub=nil,visible=1,skip=nil}
-};
-local TestDebugMinusItems={name="Test Minus Items",entry=nil,parameter=nil,sub=TestDebugMinusItems_Sub};
-
-local TestDebugCircleItems_Sub = {
-{name="2->6=",lower=20,upper=20,unit=nil,entry=chongfujia,parameter={qidian = 2, zhongdian =  6},sub=nil,visible=1,skip=nil},
-{name="8->9=",lower=17,upper=17,unit=nil,entry=bajiadaojiu,parameter=nil,sub=nil,visible=1,skip=nil},
-{name="3->5=",lower=12,upper=12,unit=nil,entry=chongfujia,parameter={qidian = 3, zhongdian = 5},sub=nil,visible=1,skip=nil},
-{name="20->22=",lower=63,upper=63,unit=nil,entry=chongfujia,parameter={qidian = 20, zhongdian = 22},sub=nil,visible=1,skip=nil}
-};
-local TestDebugCircleItems={name="Test Circle Items",entry=nil,parameter=nil,sub=TestDebugCircleItems_Sub};
-
-local TestDebugSelectItems_Sub = {
-{name="1>5?",lower="jiade",upper="jiade",unit=nil,entry=dayupanduan,parameter={number1 = 2, number2 = 5},sub=nil,visible=1,skip=nil},
-{name="9>7?",lower="zhende",upper="zhende",unit=nil,entry=dayupanduan,parameter={number1 = 9, number2 = 7},sub=nil,visible=1,skip=nil},
-{name="shuaige?",lower=1,upper=1,unit=nil,entry=shuaigepanduan,parameter={name = "yuyongbing"},sub=nil,visible=1,skip=nil},
-{name="you9",lower="you",upper="you",unit=nil,entry=youjiupanduan,parameter={zifuchuan = "hello12930"},sub=nil,visible=1,skip=nil}
-};
-local TestDebugSelectItems={name="Test Select Items",entry=nil,parameter=nil,sub=TestDebugSelectItems_Sub};
-
--- local TestAngleRadianItems_Sub = {
--- 	{name="Angle To Radian",lower=3.14,upper=3.15,unit=nil,entry=AngleToRadian,parameter=180,sub=nil,visible=1,skip=nil},
--- 	{name="Radian To Angle",lower=179,upper=181,unit=nil,entry=RadianToAngle,parameter=3.141,sub=nil,visible=1,skip=nil},
--- 	--{name="TestSquare",lower=9,upper=9,unit=nil,entry=calculateSqaure,parameter=5,sub=nil,visible=1,skip=nil}
--- }
-
-
--- local TestAngleRadianItems = {name="Test Angle and Radian Items",entry=nil,parameter=nil,sub=TestAngleRadianItems_Sub};
-
-local TestTiji_Sub = {
-{name = "earth",lower = 100,upper = 20000000,unit = "cm",entry =tiji,parameter = {length =1000,heigh = 4000},sub=nil,visible=1,disable=1}
-}
-
-local TestTiji = {name = "TestTiji_Sub",lower=nil,upper = nil,entry=nil,paramter=nil,sub=TestTiji_Sub}
-
-items = {
-TestDebugPlusItems,
-TestDebugMinusItems,
-TestDebugCircleItems,
-TestDebugSelectItems,
--- TestAngleRadianItems,
-TestTiji
-}
-
 if (value.sub) then		--含有子Item,则处理成keyitme
 line = "key"..sep;
 else				--否则当成testitem处理
@@ -478,13 +422,15 @@ end
 --local ID=1;
 --测试程序wapper函数
 function M.TEST_START()		--测试开始更新UI
+print(99999999)
 item_index=0;		--重置index
-UI:ShowTestStart(ID);
+--UI:ShowTestStart(ID);
 end
 
 function M.ITEM_START()		--使一个测试项显示开始测试
 item_remark="";
-UI:ShowItemStart(item_index,ID);
+print("M.ITEM_START")
+--UI:ShowItemStart(item_index,ID);
 --	item_index=item_index+1;
 end
 

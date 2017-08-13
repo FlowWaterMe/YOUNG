@@ -1,4 +1,4 @@
-////
+//
 ////  uiMainWndDelegate.m
 ////  UI
 ////
@@ -8,7 +8,7 @@
 //
 #import "uiMainWndDelegate.h"
 #include "GT_UserInterface.h"
-//#include "UI_Global.h"
+#include "UI_Global.h"
 #include "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/Common.h"
 #include "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/PathManager.h"
 
@@ -64,7 +64,7 @@ extern TestEngine * m_pTestEngine;
     
     mainWnd = self;
     m_DebugCondition = [NSCondition new];
-//    UI = new CUserInterface(self);
+    UI = new CUserInterface(self);
     
 //    testProgressController = [[uiTestProgressController alloc] init];
     
@@ -669,8 +669,8 @@ extern TestEngine * m_pTestEngine;
 //    [pool release];
 //    return 0;
 //}
-//-(int) OnTestFinish:(id)sender
-//{
+-(int) OnTestFinish:(id)sender
+{
 //    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 //    
 //    NSMutableDictionary * dic = (NSMutableDictionary *)sender;
@@ -763,8 +763,8 @@ extern TestEngine * m_pTestEngine;
 //    [self SaveItemTime:iID];
 //    
 //    m_TestResult[iID] = -1;  //error
-//    return 0;
-//}
+    return 0;
+}
 //-(int) OnTestError:(id)sender
 //{
 //    NSMutableDictionary * dic = (NSMutableDictionary *)sender;
@@ -1123,18 +1123,18 @@ extern TestEngine * m_pTestEngine;
         
         lua_getglobal(lua, "__Module");     //Module Name
         const char * szModule = lua_tostring(lua, -1);
-//        if (!szModule)
-//        {
-//            lua_getglobal(lua, "Module");     //Module Name
-//            szModule = lua_tostring(lua, -1);
-//            if (!szModule)
-//            {
-//                szModule = "No specical the module name";
-//            }
-//        }
+        if (!szModule)
+        {
+            lua_getglobal(lua, "Module");     //Module Name
+            szModule = lua_tostring(lua, -1);
+            if (!szModule)
+            {
+                szModule = "No specical the module name";
+            }
+        }
 //        [textModule setStringValue:[NSString stringWithUTF8String:szModule]];
         
-        lua_getglobal(lua, "__Version");    //Version
+//        lua_getglobal(lua, "__Version");    //Version
 //        const char * szVersion = lua_tostring(lua, -1);
 //        if (!szVersion)
 //        {
@@ -1149,7 +1149,7 @@ extern TestEngine * m_pTestEngine;
         
         //Get global function
         lua_getglobal(pScriptEngine->m_pLuaState, "LoadProfile");
-//        err = lua_pcall(pScriptEngine->m_pLuaState, 0, 1, 0);
+        err = lua_pcall(pScriptEngine->m_pLuaState, 0, 1, 0);
 //        if (err)
 //        {
 //            NSString * strError = [NSString stringWithUTF8String:lua_tostring(pScriptEngine->m_pLuaState, -1)];
@@ -1157,8 +1157,7 @@ extern TestEngine * m_pTestEngine;
 //        }
         
         //Read Result
-        const char * szItem = "key\tTest Plus Items\t\t\t\t\t\t\t\nitem\t000\t1+5=\t6\t6\t\t\t\t\t\nitem\t001\t8+9=\t17\t17\t\t\t\t\t\nitem\t002\t12+69=\t81\t81\t\t\t\t\t\nitem\t003\t100+99=\t199\t199\t\t\t\t\t\nkey\tTest Minus Items\t\t\t\t\t\t\t\nitem\t004\t1-5=\t-4\t-4\t\t\t\t\t\nitem\t005\t90-8=\t82\t82\t\t\t\t\t\nitem\t006\t12-3=\t9\t9\t\t\t\t\t\nitem\t007\t1000-10000=\t-9000\t-9000\t\t\t\t\t\nkey\tTest Circle Items\t\t\t\t\t\t\t\nitem\t008\t2->6=\t20\t20\t\t\t\t\t\nitem\t009\t8->9=\t17\t17\t\t\t\t\t\nitem\t010\t3->5=\t12\t12\t\t\t\t\t\nitem\t011\t20->22=\t63\t63\t\t\t\t\t\nkey\tTest Select Items\t\t\t\t\t\t\t\nitem\t012\t1>5?\tjiade\tjiade\t\t\t\t\t\nitem\t013\t9>7?\tzhende\tzhende\t\t\t\t\t\nitem\t014\tshuaige?\t1\t1\t\t\t\t\t\nitem\t015\tyou9\tyou\tyou\t\t\t\t\t\nkey\tTestTiji_Sub\t\t\t\t\t\t\t\nitem\t016\tearth\t100\t20000000\tcm\t\t\t\t";
-//        const char * szItem = lua_tostring(pScriptEngine->m_pLuaState, -1);
+        const char * szItem = lua_tostring(pScriptEngine->m_pLuaState, -1);
         NSTreeNode * items = [self ParseTestItems:[NSString stringWithUTF8String:szItem]];
         
         //Post notificaiton to updata user interface.
@@ -1799,9 +1798,9 @@ static bool monkey_proofed = true;
 //}
 //
 //#pragma mark Action
-//-(IBAction)btStart:(id)sender
-//{
-//    
+-(IBAction)btStart:(id)sender
+{
+//
 //    if ([m_pTestEngine IsTesting:-1])
 //    {
 //        NSRunAlertPanel(@"TestManager", @"Engine is running,please stop the test sequence first!", @"OK", nil, nil);
@@ -1893,8 +1892,8 @@ static bool monkey_proofed = true;
 //        }
 //    }
 //    
-//    [m_pTestEngine StartTest];
-//}
+    [m_pTestEngine StartTest];
+}
 //
 //-(IBAction)btStop:(id)sender
 //{
@@ -2631,8 +2630,8 @@ static bool monkey_proofed = true;
 //    [textPromptLog setString:@""];
 //    return 0;
 //}
--(void)OnEngineNotification:(NSNotification *)nf
-{
+//-(void)OnEngineNotification:(NSNotification *)nf
+//{
 //    if ([[nf name] isEqualToString:kNotificationOnEngineStart])
 //    {
 //        //global ui update
@@ -2725,7 +2724,7 @@ static bool monkey_proofed = true;
 //            }
 //        }
 //    }
-}
+//}
 //
 //#pragma mark Menu Auto Enable
 //- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
@@ -2894,4 +2893,6 @@ static bool monkey_proofed = true;
 ////    return position;
 ////}
 //
-@end
+    @end
+
+

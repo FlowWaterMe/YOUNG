@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:Build/Products/Debug/Profile"
+      name = "Profile">
+      <FileRef
+         location = "group:DemoFirst.imp">
+      </FileRef>
+      <FileRef
+         location = "group:DemoFirst.seq">
+      </FileRef>
+      <FileRef
+         location = "group:KB-FCT.imp">
+      </FileRef>
+      <FileRef
+         location = "group:KB-FCT.seq">
+      </FileRef>
+      <FileRef
+         location = "group:TigerSkyExample.imp">
+      </FileRef>
+      <FileRef
+         location = "group:TigerSkyExample.seq">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Global/Global.xcodeproj">
    </FileRef>
