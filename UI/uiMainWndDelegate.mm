@@ -9,12 +9,12 @@
 #import "uiMainWndDelegate.h"
 #include "GT_UserInterface.h"
 #include "UI_Global.h"
-#include "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/Common.h"
-#include "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/PathManager.h"
+#include "CoreLib/Common.h"
+#include "CoreLib/PathManager.h"
 
-#include "/Users/mac/Documents/程序/YOUNG//CoreLib/ScriptEngine.h"
-#include "/Users/mac/Documents/程序/YOUNG//CoreLib/CoreLib/KeyItem.h"
-#include "/Users/mac/Documents/程序/YOUNG//CoreLib/CoreLib/TestItem.h"
+#include "CoreLib/ScriptEngine.h"
+#include "CoreLib/KeyItem.h"
+#include "CoreLib/TestItem.h"
 //#include "uiDebugWndDelegate.h"
 //#include "uiConfigWndDelegate.h"
 //

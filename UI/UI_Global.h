@@ -10,7 +10,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import "UserInterface.h"
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestContext.h"
+#include "CoreLib/TestContext.h"
 extern CUserInterface * UI;
 typedef enum __DEBUG_ACTION {
     DEBUG_SKIP = -1,        //Skip current item

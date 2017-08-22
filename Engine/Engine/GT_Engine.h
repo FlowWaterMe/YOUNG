@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 //#import "TestEngine.h"
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestEngine.h"
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/ScriptEngine.h"
+#include "CoreLib/TestEngine.h"
+#include "CoreLib/ScriptEngine.h"
 #define UUT_MODULE  1
 
 @interface GT_Engine : TestEngine{

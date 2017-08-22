@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "CoreLib/CoreLib.h"
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestEngine.h"
+#include "CoreLib/TestEngine.h"
 
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/DriverModule.h"
+#include "CoreLib/DriverModule.h"
 @interface TestManager : NSObject
 {
     TestEngine *m_pTestEngine;

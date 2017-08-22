@@ -16,9 +16,9 @@
 
 #import "uiOutlineViewDataSource.h"
 
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/CoreLib/TestItem.h"
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/CoreLib/KeyItem.h"
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestEngine.h"
+#include "CoreLib/TestItem.h"
+#include "CoreLib/KeyItem.h"
+#include "CoreLib/TestEngine.h"
 #include "ImageAndTextCell.h"
 
 #define ITEM_IDENTIFIER   @"index,testkey,description,time,lower,upper,uut1,uut2,uut3,uut4,uut5,uut6,unit,remark"
