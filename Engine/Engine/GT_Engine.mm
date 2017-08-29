@@ -250,12 +250,12 @@
 //                    if (![en intValue])         //Skip Test
 //                        continue;
 //                }
-                
+//                
 //                NSMutableDictionary * dic = m_pTestContext[i]->m_dicContext;
 //                id isbreak = [dic valueForKey:@"IsTestBreak?"];
 //                if ([isbreak boolValue])   //test has been break with exception
 //                {
-                    //NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test abort!",i], @"OK", nil, nil);
+//                    NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test abort!",i], @"OK", nil, nil);
 //                    NSLog(@"UUT%d test has been aborted! will don't save any data.",i);
 //                }
 //                else

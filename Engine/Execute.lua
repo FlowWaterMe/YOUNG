@@ -804,6 +804,7 @@ end
 __test_state=0;
 function main(...)
 --initial global variant
+print("main function start")
 ItemFail = {};
 ItemFailWaived = {};
 uutsku={};

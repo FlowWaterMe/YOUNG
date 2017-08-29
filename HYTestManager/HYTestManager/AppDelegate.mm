@@ -51,11 +51,14 @@ extern CUserInformation *m_pUserInformation;
 //        str = [str stringByAppendingPathComponent:@tag_file];
 //        [[NSFileManager defaultManager] removeItemAtPath:str error:nil];
 //        [[NSFileManager defaultManager] createFileAtPath:str contents:nil attributes:nil];
+
+
     }
     return self;
 }
 -(void)awakeFromNib
 {
+
     [tvTMList setTarget:self];
     [tvTMList setDoubleAction:@selector(DblClickOnTableView:)];
 }
@@ -68,13 +71,14 @@ extern CUserInformation *m_pUserInformation;
 
 -(void)applicationWillFinishLaunching:(NSNotification *)notification
 {
+
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.listOfTmFiles = [self ListTmFile];
     [tvTMList noteNumberOfRowsChanged];
-    
+
     if (![self.listOfTmFiles count])
     {
         NSRunAlertPanel(@"Launch Failed", @"Couldn't found tm config file,should special at least one", @"OK", nil, nil);
@@ -215,6 +219,7 @@ extern CUserInformation *m_pUserInformation;
         }
         //Change Menu title;
         NSMenu * mainMenu = [NSApp mainMenu];
+        [[NSApp mainMenu]setValue:m_menu forKey:@"menus"];
         NSMenu * appMenu = [[mainMenu itemAtIndex:0]submenu];
         [appMenu setTitle:strName];
         [[appMenu itemAtIndex:0] setTitle:[NSString stringWithFormat:@"About %@",strName]];

@@ -8,6 +8,4 @@
 
 #import "Global_Function.h"
 
-@implementation Global_Function
 
-@end

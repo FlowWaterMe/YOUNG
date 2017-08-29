@@ -14,6 +14,7 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 #pragma once
+#include <iostream>
 //Global Function
 void Delay(int ms);     //Delay with milliseconds
 double Now();           //Returns the interval between the receiver and the first instant of 1 January 1970, GMT

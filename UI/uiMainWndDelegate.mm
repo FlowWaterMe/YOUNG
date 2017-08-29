@@ -95,7 +95,8 @@ extern TestEngine * m_pTestEngine;
 //    }
 //    @finally {
 //    }
-//    
+//
+//    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:m_menu,@"menus",m_window,@"windows", nil]];
 //    //create timer
 //    testTimer= [NSTimer scheduledTimerWithTimeInterval:0.6 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
 //    [testTimer fire];
@@ -140,9 +141,13 @@ extern TestEngine * m_pTestEngine;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(OnEngineNotification:) name:kNotificationOnEngineFinish object:nil];
     
     
+
     //post notification to attchment menus
     //[[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObject:instrMenu forKey:@"menus"]];
-    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:instrMenu,@"menus",winMain,@"windows", nil]];
+//    instrMenu = [[NSApp mainMenu]valueForKey:@"Intrument"];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:instrMenu,@"menus",winMain,@"windows", nil]];
+    
+
     
     //UI update
 //    [textStation setStringValue:[CTestContext::m_dicGlobal valueForKey:kContextStationName]];

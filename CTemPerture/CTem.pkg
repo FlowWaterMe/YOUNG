@@ -1,0 +1,10 @@
+#pragma once
+$#include "CTem.h"
+class CTem
+{
+public:
+    CTem();
+    ~CTem();
+public:
+    int count(int mm,int nn);
+};

@@ -1,0 +1,4 @@
+#pragma once
+$#include "CTemGlobal.h"
+
+extern CTem * temobj;

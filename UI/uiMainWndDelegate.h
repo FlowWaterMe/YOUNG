@@ -90,6 +90,8 @@
     
     IBOutlet NSMenu * instrMenu;
     IBOutlet NSMenu * toolsMenu;
+    IBOutlet NSMenu * m_menu;
+    IBOutlet NSWindow * m_window;
     
     IBOutlet NSMenuItem * loginMenu;
     

@@ -12,7 +12,7 @@
         <array>
 <!--            <string>global.bundle</string>-->
 <!--            <string>datalogger.bundle</string>-->
-<!--            <string>Instrument.bundle</string>-->
+        <string>CTemPerture.bundle</string>
         </array>
         <key>StartUp</key>
         <false/>

@@ -17,9 +17,9 @@ IBOutlet NSTextView * txtLogView;
 
 IBOutlet NSTextField * txtAboutTitle;
 IBOutlet NSTextView * txtAboutInformation;
-
+IBOutlet NSMenu * m_menu;
 IBOutlet NSProgressIndicator * progress;
-
+IBOutlet NSWindow * m_window;
 NSTimer * timerSplash;
 
 NSThread * threadLoading;
