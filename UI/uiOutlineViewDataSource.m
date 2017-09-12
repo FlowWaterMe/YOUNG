@@ -10,9 +10,7 @@
 //  uiOutlineViewDataSource.m
 //  UI
 //
-//  Created by Ryan on 12-11-5.
-//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
-//
+
 
 #import "uiOutlineViewDataSource.h"
 
