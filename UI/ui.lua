@@ -4,6 +4,7 @@ local modname=...;
 local M={};
 _G[modname]=M;
 package.loaded[modname]=M;
+
 --local SHOW_ALL_ITEM=1		--show the visible item in the UI?
 DEFAULT="-"
 local t={};
@@ -12,14 +13,10 @@ local t={};
 local tree={};
 local sep="\t"		--字符串分隔符，每一个测试项目用\n份分隔，每一项里面各个内容用该字符分隔。
 local steps=0;
-
-
-
-
-
 local function BuildItemTree(its)
 for index,value in ipairs(its) do
 local line=nil;
+
 if (value.sub) then		--含有子Item,则处理成keyitme
 line = "key"..sep;
 else				--否则当成testitem处理
@@ -422,15 +419,13 @@ end
 --local ID=1;
 --测试程序wapper函数
 function M.TEST_START()		--测试开始更新UI
-print(99999999)
 item_index=0;		--重置index
---UI:ShowTestStart(ID);
+UI:ShowTestStart(ID);
 end
 
 function M.ITEM_START()		--使一个测试项显示开始测试
 item_remark="";
-print("M.ITEM_START")
---UI:ShowItemStart(item_index,ID);
+UI:ShowItemStart(item_index,ID);
 --	item_index=item_index+1;
 end
 

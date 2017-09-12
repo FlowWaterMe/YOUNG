@@ -12,15 +12,15 @@
 --require "RLdb"
 
 --[[
-Version History:
-V1.2:
-1.修复一个项目如果被skipped,没有相应更新value.state，潜在可能会在某些情况下引起pudding会上传该logger的错误。
-V1.1:
-1.没有显示的项目，被强制为测试pass.(避免后台导致fail的问题)
-2.当spec为string时，如果返回一个非string类型，将报错
-V1.0:
-Fisrt Version
-]]
+    Version History:
+    V1.2:
+    1.修复一个项目如果被skipped,没有相应更新value.state，潜在可能会在某些情况下引起pudding会上传该logger的错误。
+    V1.1:
+    1.没有显示的项目，被强制为测试pass.(避免后台导致fail的问题)
+    2.当spec为string时，如果返回一个非string类型，将报错
+    V1.0:
+    Fisrt Version
+    ]]
 local version = 1.2
 
 PDCA_ATTR="Attribute"
@@ -34,34 +34,7 @@ ERROR=-1;
 WAIVED=4;
 
 uutsku={};
-function Log( par1,par2 )
-if par1 == nil then
-print(12345)
-return 0
-end
-print(par1)
-end
-function skip(  )
--- body
-Log("skip fuck u");
-end
-function DbgLog( par1,par2 )
--- body
-Log(par1);
-end
-function CheckBreakPoints( par )
--- body
-print("CheckBreakPoints *****************")
-return -1
-end
-function pause( ... )
--- body
-print("stop *****************")
-end
-function Now( ... )
--- body
-return os.date()
-end
+
 function DbgOut(fmt,...)
 if (DEBUG ~=0) then
 local tf = {...};
@@ -85,7 +58,6 @@ end
 
 local EN_DEBUG = 0;
 function Entry(fun,...)		--Log Function
-print("Entry")
 if (EN_DEBUG == 0) then return; end
 str = tostring(fun);
 if(...) then
@@ -146,13 +118,13 @@ else
 return FAIL;
 end
 --[[
------------------------------------------------------------------------
-author:ZL Meng
-Date:Jul.17 2015
-Description:
-添加函数limit和表格limit
------------------------------------------------------------------------
---]]
+    -----------------------------------------------------------------------
+    author:ZL Meng
+    Date:Jul.17 2015
+    Description:
+    添加函数limit和表格limit
+    -----------------------------------------------------------------------
+    --]]
 elseif (type(lower)=="function") and (type(upper)=="function")  then
 local lower_value = lower();
 local upper_value = upper();
@@ -215,7 +187,6 @@ end
 
 local steps=-1;
 local function Excute_Item(item)
-print("Excute_Item")
 Entry("Entry \""..item.name.."\" Item");		--Log message
 this=item;
 local value=0;
@@ -241,13 +212,13 @@ print("--> "..tostring(item.testkey).." using lower=".. tostring(item.lower) .. 
 
 state = CheckResult(item.lower,item.upper,value);
 --[[
------------------------------------------------------------------------
-author:ZL Meng
-Date:Jul.17 2015
-Description:
-添加函数limit和表格limit
------------------------------------------------------------------------
---]]
+    -----------------------------------------------------------------------
+    author:ZL Meng
+    Date:Jul.17 2015
+    Description:
+    添加函数limit和表格limit
+    -----------------------------------------------------------------------
+    --]]
 if (type(value)=="table") then
 local x = ""
 for i,v in ipairs(value) do
@@ -286,13 +257,13 @@ value = func();
 --			DbgOut("value1 : %s value2 : %s value3 : %s value4 : %s",tostring(value1),tostring(value2),tostring(value3),tostring(value4));
 state = CheckResult(item.lower,item.upper,value);
 --[[
------------------------------------------------------------------------
-author:ZL Meng
-Date:Jul.17 2015
-Description:
-添加函数limit和表格limit
------------------------------------------------------------------------
---]]
+    -----------------------------------------------------------------------
+    author:ZL Meng
+    Date:Jul.17 2015
+    Description:
+    添加函数limit和表格limit
+    -----------------------------------------------------------------------
+    --]]
 if (type(value)=="table") then
 local x = ""
 for i,v in ipairs(value) do
@@ -361,8 +332,8 @@ DbgOut(item.name.." has been skipped for this item");
 ret,state,display = "Skipped",2,"Skipped";
 else
 ---[[
-ret,state,display = Excute_Item(item);	--Execute test item entry function, and check the return value.
---]]
+     ret,state,display = Excute_Item(item);	--Execute test item entry function, and check the return value.
+     --]]
 end
 
 if (not ret) then
@@ -373,206 +344,206 @@ return ret,state,display;
 end
 
 ---[[
-ItemFail={};	--fail items conllection
-ItemFailWaived={};
-SHOW_ALL_ITEM=0;
-local count_index=0;
-local stoptest = false;
-test_result = PASS;
-
-local skip_curr_block=nil;
-function DoTest(ti)	--测试主循环入口TestEntry,执行test sequence
---	sfasfsdf();
---local test_result = PASS;
-for index,value in ipairs(ti) do
---TestCancel();	--test has been cancel or not
---		UUT_SYNCH(ID);
---处理Debug消息
-
-if (value.sub==nil) then		--Sub test item
-TestFlowOut("==SubTest: %s", pdcaname(value));
-steps=steps+1;
-else
-TestFlowOut("==Test: %s",pdcaname(value));		--Key item
--- end
--- if (DEBUG_CMD == DEBUG_DISABLE) then
--- --Do Nothing...
--- elseif (DEBUG_CMD==DEBUG_STEP) then		--Step
--- if (value.sub==nil) then
--- pause();	--不是key item
--- end
--- else
--- if (CheckBreakPoints(tostring(value.name))>0) then		--Capture break point
--- pause();
--- end
-end
-
-
---		if (value.visible==nil) or (value.visible~=0) then
-if ((SHOW_ALL_ITEM==1) or (value.visible ~=0)) then	--显示指定隐藏该项目的显示，则不显示该项目，缺省显示该项目
-ui.ITEM_START();		--Update UI of current item
-end
-
-local ret,state,display
---[[
-if (tostring(tc.ID())) then
-count_index=count_index+1;
-if (count_index==10) then
-ret,state,display = 123,0,"lkfsksadfjlk";	--just only debug
-else
-ret,state,display = 123,1,"lkfsksadfjlk";	--just only debug
-end
---Delay(1000);
-else
-ret,state,display = Excute_Item(value);	--Execute test item entry function, and check the return value.
-end
---]]
--- mark start
-value.starttime = Now();
-
---this item should be skipped or not.
-local isskip = false;
-if (value.skip) then		--this item has been set need to care is skipped or not
-local skip = value.skip;
-isskip = skip;
-if (type(skip)=="function") then
-isskip = skip();
-DbgOut("isskip : "..tostring(isskip));
-elseif (type(skip)=="string") then
-local func,err = loadstring(skip);
-assert(func~=nil,tostring(err));			--exception
-isskip = func();
-else
-if (isskip==0) then
-isskip = false;
-end
-end
-end
-print(111111111111)
--- if (isskip or skip_curr_block) then		--this item should be skipped
--- DbgOut(value.name.." has been skipped for this item");
--- ret,state,display = nil,2,"Skipped";
--- value.value="Skipped";
--- value.state=state;		--2013-08-05,should update
--- else
----[[
-ret,state,display = Excute_Item(value);	--Execute test item entry function, and check the return value.
-if ((value.visible==0) or (value.visible==false)) then
-state=1;	--强制设定为pass
-end
---]]
-if (not ret) then
-ret = tostring(ret);
-end
-value.value=ret;
-value.state=state;
--- end
-
---record test result and storage
-if (state<=0) then
---Check CoF
-print("COF : ",value.cof);
-if ((value.cof) and (value.cof~=0)) then
-state=3;	--CoF
-else
-test_result = FAIL;
-ItemFail[#ItemFail+1]=pdcaname(value);
-
-if (value.waiver == true) then
-ItemFailWaived[#ItemFailWaived+1] = pdcaname(value);
-end
-
-end
-end
-
---		UUT_SYNCH(ID);	--waiting other UUT
---		if (value.visible==nil) or (value.visible~=0) then
-if ((SHOW_ALL_ITEM==1) or (value.visible ~=0)) then	--显示指定隐藏该项目的显示，则不显示该项目，缺省显示该项目
-if ((state == FAIL) and (value.waiver)) then
-ui.ITEM_FINISH(ret,WAIVED,display);
-else
-ui.ITEM_FINISH(ret,state,display);		--Update UI
-end
-if (state==0) then	--record fail message
-if (display) then
-value.error_msg = tostring(display);
-end
-else
-value.failmsg = "";
-end
-if (value.sub==nil) then
---dl.AddRecord(ret);	--save to csv file log
---处理PDCA项目
-if (not value.PDCA) or (not value.PDCA.ATTR) then	--没有指定PDCA,或没有指定为attribute,则当作测试项目来处理
-end
-end
-end
-
--- Check waiver
-if (test_result == FAIL) then
-if (value.waiver) then
-print("--> test "..value.testkey.." waived");
-test_result = PASS;
-end
-end
-
-
---if need stop when test fail
-if ((value.stopfail) and (value.stopfail~=0)) then	--stop if fail
-if (value.waiver ~= true) then
-if (value.stopfail==2) then	--skip current block
-skip_curr_block = true;
-else
-if (state<=0) then
-stoptest = true;
-break;	--break current loop
-end
-end
-end
-end
-
---check fail count
-local fc = tonumber(tc.FailCount());
-ItemFailedWithoutWaiver = #ItemFail - #ItemFailWaived;
-if (fc==0) then
-if (ItemFailedWithoutWaiver>fc) then
-stoptest = true;
-print("stoptest due to A ItemFailedWithoutWaiver "..tostring(ItemFailedWithoutWaiver).." > fc "..fc);
-break;
-end
-elseif (fc>0) then
-if (ItemFailedWithoutWaiver>=fc) then
-stoptest = true;
-print("stoptest due to B ItemFailedWithoutWaiver "..tostring(ItemFailedWithoutWaiver).." > fc "..fc);
-break;
-end
-end
-
---执行子项目
-if (value.sub) then
-skip_curr_block = false;
-local ret = DoTest(value.sub);
-if (ret<=0) then
-test_result=FAIL;
-end
-end
-
---stop current test?
-if (stoptest) then
---UUT_SYNCH(ID,"-1");
-break;
-end
-
-value.endtime = Now();
-value.elapsed = value.endtime - value.starttime;
-
-TestFlowOut("\t%s elapsed=%.3f", value.name, value.elapsed);
-
-end
-
-return test_result;
-end
---]]
+     ItemFail={};	--fail items conllection
+     ItemFailWaived={};
+     SHOW_ALL_ITEM=0;
+     local count_index=0;
+     local stoptest = false;
+     test_result = PASS;
+     
+     local skip_curr_block=nil;
+     function DoTest(ti)	--测试主循环入口TestEntry,执行test sequence
+     --	sfasfsdf();
+     --local test_result = PASS;
+     for index,value in ipairs(ti) do
+     TestCancel();	--test has been cancel or not
+     --		UUT_SYNCH(ID);
+     --处理Debug消息
+     
+     if (value.sub==nil) then		--Sub test item
+     TestFlowOut("==SubTest: %s", pdcaname(value));
+     steps=steps+1;
+     else
+     TestFlowOut("==Test: %s",pdcaname(value));		--Key item
+     end
+     if (DEBUG_CMD == DEBUG_DISABLE) then
+     --Do Nothing...
+     elseif (DEBUG_CMD==DEBUG_STEP) then		--Step
+     if (value.sub==nil) then
+     pause();	--不是key item
+     end
+     else
+     if (CheckBreakPoints(tostring(value.name))>0) then		--Capture break point
+     pause();
+     end
+     end
+     
+     
+     --		if (value.visible==nil) or (value.visible~=0) then
+     if ((SHOW_ALL_ITEM==1) or (value.visible ~=0)) then	--显示指定隐藏该项目的显示，则不显示该项目，缺省显示该项目
+     ui.ITEM_START();		--Update UI of current item
+     end
+     
+     local ret,state,display
+     --[[
+         if (tostring(tc.ID())) then
+         count_index=count_index+1;
+         if (count_index==10) then
+         ret,state,display = 123,0,"lkfsksadfjlk";	--just only debug
+         else
+         ret,state,display = 123,1,"lkfsksadfjlk";	--just only debug
+         end
+         --Delay(1000);
+         else
+         ret,state,display = Excute_Item(value);	--Execute test item entry function, and check the return value.
+         end
+         --]]
+     -- mark start
+     value.starttime = Now();
+     
+     --this item should be skipped or not.
+     local isskip = false;
+     if (value.skip) then		--this item has been set need to care is skipped or not
+     local skip = value.skip;
+     isskip = skip;
+     if (type(skip)=="function") then
+     isskip = skip();
+     DbgOut("isskip : "..tostring(isskip));
+     elseif (type(skip)=="string") then
+     local func,err = loadstring(skip);
+     assert(func~=nil,tostring(err));			--exception
+     isskip = func();
+     else
+     if (isskip==0) then
+					isskip = false;
+     end
+     end
+     end
+     
+     if (isskip or skip_curr_block) then		--this item should be skipped
+     DbgOut(value.name.." has been skipped for this item");
+     ret,state,display = nil,2,"Skipped";
+     value.value="Skipped";
+     value.state=state;		--2013-08-05,should update
+     else
+     ---[[
+          ret,state,display = Excute_Item(value);	--Execute test item entry function, and check the return value.
+          if ((value.visible==0) or (value.visible==false)) then
+          state=1;	--强制设定为pass
+          end
+          --]]
+     if (not ret) then
+     ret = tostring(ret);
+     end
+     value.value=ret;
+     value.state=state;
+     end
+     
+     --record test result and storage
+     if (state<=0) then
+     --Check CoF
+     print("COF : ",value.cof);
+     if ((value.cof) and (value.cof~=0)) then
+					state=3;	--CoF
+     else
+     test_result = FAIL;
+     ItemFail[#ItemFail+1]=pdcaname(value);
+     
+     if (value.waiver == true) then
+     ItemFailWaived[#ItemFailWaived+1] = pdcaname(value);
+     end
+     
+     end
+     end
+     
+     --		UUT_SYNCH(ID);	--waiting other UUT
+     --		if (value.visible==nil) or (value.visible~=0) then
+     if ((SHOW_ALL_ITEM==1) or (value.visible ~=0)) then	--显示指定隐藏该项目的显示，则不显示该项目，缺省显示该项目
+     if ((state == FAIL) and (value.waiver)) then
+     ui.ITEM_FINISH(ret,WAIVED,display);
+     else
+     ui.ITEM_FINISH(ret,state,display);		--Update UI
+     end
+     if (state==0) then	--record fail message
+     if (display) then
+					value.error_msg = tostring(display);
+     end
+     else
+     value.failmsg = "";
+     end
+     if (value.sub==nil) then
+     --dl.AddRecord(ret);	--save to csv file log
+     --处理PDCA项目
+     if (not value.PDCA) or (not value.PDCA.ATTR) then	--没有指定PDCA,或没有指定为attribute,则当作测试项目来处理
+     end
+     end
+     end
+     
+     -- Check waiver
+     if (test_result == FAIL) then
+     if (value.waiver) then
+     print("--> test "..value.testkey.." waived");
+     test_result = PASS;
+     end
+     end
+     
+     
+     --if need stop when test fail
+     if ((value.stopfail) and (value.stopfail~=0)) then	--stop if fail
+     if (value.waiver ~= true) then
+     if (value.stopfail==2) then	--skip current block
+					skip_curr_block = true;
+     else
+					if (state<=0) then
+     stoptest = true;
+     break;	--break current loop
+					end
+     end
+     end
+     end
+     
+     --check fail count
+     local fc = tonumber(tc.FailCount());
+     ItemFailedWithoutWaiver = #ItemFail - #ItemFailWaived;
+     if (fc==0) then
+     if (ItemFailedWithoutWaiver>fc) then
+     stoptest = true;
+     print("stoptest due to A ItemFailedWithoutWaiver "..tostring(ItemFailedWithoutWaiver).." > fc "..fc);
+     break;
+     end
+     elseif (fc>0) then
+     if (ItemFailedWithoutWaiver>=fc) then
+     stoptest = true;
+     print("stoptest due to B ItemFailedWithoutWaiver "..tostring(ItemFailedWithoutWaiver).." > fc "..fc);
+     break;
+     end
+     end
+     
+     --执行子项目
+     if (value.sub) then
+     skip_curr_block = false;
+     local ret = DoTest(value.sub);
+     if (ret<=0) then
+     test_result=FAIL;
+     end
+     end
+     
+     --stop current test?
+     if (stoptest) then
+     --UUT_SYNCH(ID,"-1");
+     break;
+     end
+     
+     value.endtime = Now();
+     value.elapsed = value.endtime - value.starttime;
+     
+     TestFlowOut("\t%s elapsed=%.3f", value.name, value.elapsed);
+     
+     end
+     
+     return test_result;
+     end
+     --]]
 
 --system callback,when a test sequence will go start
 function __TestInitial()
@@ -658,93 +629,93 @@ uutsku[#uutsku + 1] = sku;
 end
 
 --[[
-SetSKUByBoardID:
-This function should be added to the sequence after booting to EFI diag for the first time.
---]]
+    SetSKUByBoardID:
+    This function should be added to the sequence after booting to EFI diag for the first time.
+    --]]
 function SetSKUByBoardID()
 return 0;
 --[[
-dut.ReadString();
-dut.SendCmd("boardid");
-dut_response = dut.ReadString();
-
-if (string.match(dut_response, "0x02")) then
-AddSKU("X240");
-print("X240 detected");
-elseif (string.match(dut_response, "0x04")) then
-AddSKU("X320");
-print("X320 detected");
-else
-print("SetSKU don't know how to match SKU to boardid '"..dut_response.."'");
-end
-
-return 0;
---]]
+    dut.ReadString();
+    dut.SendCmd("boardid");
+    dut_response = dut.ReadString();
+    
+    if (string.match(dut_response, "0x02")) then
+    AddSKU("X240");
+    print("X240 detected");
+    elseif (string.match(dut_response, "0x04")) then
+    AddSKU("X320");
+    print("X320 detected");
+    else
+    print("SetSKU don't know how to match SKU to boardid '"..dut_response.."'");
+    end
+    
+    return 0;
+    --]]
 end
 
 --[[
-SetSKUBySoCVoltage:
-This function should be added to the sequence after booting to EFI diag for the first time.
---]]
+    SetSKUBySoCVoltage:
+    This function should be added to the sequence after booting to EFI diag for the first time.
+    --]]
 function SetSKUBySoCVoltage()
 return -1;
 --[[
-ret = -1;
-dut.ReadString();
-dut.SendCmd("soc -p list-soc-bin-data");
-dut_response = dut.ReadString();
-
---	index,freq,volt = dut_response:match("%s+(0)%s+(%d+)%s+(%d+)");
-index,freq,volt = dut_response:match("%s+(0)%s+(%w+)%s+(%w+)");
-
-if (index and freq and volt) then
-AddSKU(tostring(volt));
-ret = 0;
-end
-
-DbgOut("SetSKUBySoCVoltage uutsku : "..tostring(uutsku));
-DbgOut("SetSKUBySoCVoltage returning "..tostring(ret));
-
-return ret;
---]]
+    ret = -1;
+    dut.ReadString();
+    dut.SendCmd("soc -p list-soc-bin-data");
+    dut_response = dut.ReadString();
+    
+    --	index,freq,volt = dut_response:match("%s+(0)%s+(%d+)%s+(%d+)");
+    index,freq,volt = dut_response:match("%s+(0)%s+(%w+)%s+(%w+)");
+    
+    if (index and freq and volt) then
+    AddSKU(tostring(volt));
+    ret = 0;
+    end
+    
+    DbgOut("SetSKUBySoCVoltage uutsku : "..tostring(uutsku));
+    DbgOut("SetSKUBySoCVoltage returning "..tostring(ret));
+    
+    return ret;
+    --]]
 end
 
 function SetSKUByCommand(par)
 return -1;
 --[[
-if (par.cmd) then
-dut.ReadString();
-dut.SendCmd(par.cmd, ":-)", 20000);
-dut_response = dut.ReadString();
-end
-
-if (par.rex) then
-if (dut_response) then
-val = dut_response:match(par.rex);
-print("val="..tostring(val));
-if (val) then
-AddSKU(tostring(val));
-tprint(uutsku,0);
---				DbgOut("SetSKUByCommand got sku = "..val);
---				return uutsku;
-end
-end
-else
---		DbgOut("SetSKUByCommand rex not defined in parameter!");
---		return -1;
-end
-
-return val;
---]]
+    if (par.cmd) then
+    dut.ReadString();
+    dut.SendCmd(par.cmd, ":-)", 20000);
+    dut_response = dut.ReadString();
+    end
+    
+    if (par.rex) then
+    if (dut_response) then
+    val = dut_response:match(par.rex);
+    print("val="..tostring(val));
+    if (val) then
+    AddSKU(tostring(val));
+    tprint(uutsku,0);
+    --				DbgOut("SetSKUByCommand got sku = "..val);
+    --				return uutsku;
+    end
+    end
+    else
+    --		DbgOut("SetSKUByCommand rex not defined in parameter!");
+    --		return -1;
+    end
+    
+    return val;
+    --]]
 end
 
 
 --[[
-ConfigureLimitForItemBySKU:
-Switches item.lower and item.upper to sku specific value if available.
---]]
+    ConfigureLimitForItemBySKU:
+    Switches item.lower and item.upper to sku specific value if available.
+    --]]
 function ConfigureLimitForItemBySKU(item)
-print("ConfigureLimitForItemBySKU")
+
 if (item["skulimit"]) then
 
 -- default to ... "default".
@@ -776,7 +747,7 @@ end
 end
 
 function ConfigureWaiverForItemBySKU(item)
-print("ConfigureWaiverForItemBySKU")
+
 if (item["skuwaiver"]) then
 
 -- default no waiver.
@@ -804,7 +775,6 @@ end
 __test_state=0;
 function main(...)
 --initial global variant
-print("main function start")
 ItemFail = {};
 ItemFailWaived = {};
 uutsku={};
@@ -816,10 +786,10 @@ test_result = PASS;
 initialTest(items);
 ui.TEST_START();		--Update UI to start test
 Test_OnEntry();		--Call
---dl.InitialReport(tc.mlbSN())
+dl.InitialReport(tc.mlbSN())
 --	dl.ClearBuffer();
 --	dl.BuildCsvLogFileHeader(items);	--build csv log
-local ret = "skip"--DoTest(items);		--do test
+local ret = DoTest(items);		--do test
 DbgOut("result : %d",tonumber(ret));
 DbgOut("Fail Item : \r\n"..table.concat(ItemFail,","));
 DbgOut("Fail Item But is WAIVED : \r\n"..table.concat(ItemFailWaived,","));

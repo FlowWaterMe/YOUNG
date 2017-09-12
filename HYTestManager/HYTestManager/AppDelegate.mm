@@ -219,7 +219,7 @@ extern CUserInformation *m_pUserInformation;
         }
         //Change Menu title;
         NSMenu * mainMenu = [NSApp mainMenu];
-        [[NSApp mainMenu]setValue:m_menu forKey:@"menus"];
+//        [[NSApp mainMenu]setValue:m_menu forKey:@"menus"];
         NSMenu * appMenu = [[mainMenu itemAtIndex:0]submenu];
         [appMenu setTitle:strName];
         [[appMenu itemAtIndex:0] setTitle:[NSString stringWithFormat:@"About %@",strName]];

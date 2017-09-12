@@ -143,9 +143,9 @@ extern TestEngine * m_pTestEngine;
     
 
     //post notification to attchment menus
-    //[[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObject:instrMenu forKey:@"menus"]];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObject:instrMenu forKey:@"menus"]];
 //    instrMenu = [[NSApp mainMenu]valueForKey:@"Intrument"];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:instrMenu,@"menus",winMain,@"windows", nil]];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationAttachMenu object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:instrMenu,@"menus",winMain,@"windows", nil]];
     
 
     

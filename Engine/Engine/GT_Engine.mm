@@ -7,7 +7,7 @@
 //
 
 #import "GT_Engine.h"
-#import "/Users/mac/Documents/程序/YOUNG/HYTestManager/HYTestManager/Common.h"
+#import "CoreLib/Common.h"
 @implementation GT_Engine
 
 -(id)init
@@ -105,44 +105,7 @@
     m_threadManager = [[NSThread alloc] initWithTarget:self selector:@selector(threadManager:) object:self];
     [m_threadManager start];
     return 0;
-//
-//    //-------
-//    m_ModuleFinish=0;
-//    m_ModuleTesting=0;
-//    
-//    NSString * dicKey[] = {@kEngineUUT0Enable,@kEngineUUT1Enable,@kEngineUUT2Enable,@kEngineUUT3Enable,@kEngineUUT4Enable,@kEngineUUT5Enable,@kEngineUUT6Enable,@kEngineUUT7Enable};
-//    
-//    for (int i=0;i<=UUT_MODULE-1;i++)
-//    {
-//        m_ScriptEngine[i]->Reslease();
-//        m_ScriptEngine[i]->Init();
-//        id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
-//        if (en)
-//        {
-//            if (![en intValue])         //Skip Test
-//                continue;
-//        }
-//        
-//        m_ModuleTesting++;
-//        
-//        NSNumber * numEngine = [NSNumber numberWithLong:(long)m_ScriptEngine[i]];
-//        NSNumber * numID = [NSNumber numberWithLong:i];
-//        
-//        NSDictionary * dicPar = [NSDictionary dictionaryWithObjectsAndKeys:numEngine,@"engine",numID,@"id", nil];
-//        [threadUintTest[i] release];
-//        threadUintTest[i]= [[NSThread alloc]initWithTarget:self selector:@selector(TestEntry:) object:dicPar];
-//        
-//        [self RegisterUUT_Variant:i];
-//        
-//        //post notification start test
-//        NSDictionary * dicProcess = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i],KEY_FIXTURE_ID,[NSNumber numberWithInt:TEST_PROCESS_START],KEY_TEST_PROCESS,nil];
-//        
-//        [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnEngineStart object:nil userInfo:dicProcess];
-//        
-//        [[threadUintTest[i] threadDictionary] removeAllObjects];
-//        [threadUintTest[i] start];
-//    }
-//    return 0;
+
 }
 
 -(void)threadManager:(id)sender
