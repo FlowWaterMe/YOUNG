@@ -11,12 +11,13 @@
 //#import "TestEngine.h"
 #include "CoreLib/TestEngine.h"
 #include "CoreLib/ScriptEngine.h"
+#include "CoreLib/TestContext.h"
 #define UUT_MODULE  1
 
 @interface GT_Engine : TestEngine{
 @private
     CScriptEngine * m_ScriptEngine[UUT_MODULE];     //Script Engine
-//    CTestContext * m_pTestContext[UUT_MODULE];      //Test Context,will export into script in global bundle
+    CTestContext * m_pTestContext[UUT_MODULE];      //Test Context,will export into script in global bundle
     NSThread * threadUintTest[UUT_MODULE];
     NSThread * m_threadManager;
     NSLock * engineLock;

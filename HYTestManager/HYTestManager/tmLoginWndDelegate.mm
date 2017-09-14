@@ -10,9 +10,25 @@
 #include "Common.h"
 CUserInformation * m_pUserInformation=nil;
 @implementation tmLoginWndDelegate
+-(id)init{
+    self = [super init];
+    if(self)
+    {
+        m_pUserInformation = new CUserInformation();
+    }
+    return self;
+}
+
+-(void)dealloc
+{
+    if(m_pUserInformation){
+        delete m_pUserInformation;
+        m_pUserInformation = NULL;
+    }
+    [super dealloc];
+}
 -(void)awakeFromNib
 {
-    m_pUserInformation = new CUserInformation();
     
     NSBundle * bundle = [NSBundle bundleForClass:[self class]];
     NSString * str = [[bundle resourcePath] stringByAppendingPathComponent:SECRITY_FILE];

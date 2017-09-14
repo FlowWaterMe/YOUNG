@@ -9,7 +9,7 @@
 #ifndef DriverModule_h
 #define DriverModule_h
 #import <Foundation/Foundation.h>
-//#include "Common.h"
+#include "Common.h"
 #define CMD_SAVE_LOG     0x00        //Save log
 
 

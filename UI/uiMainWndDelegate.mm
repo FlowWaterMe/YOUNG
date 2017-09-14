@@ -1806,12 +1806,12 @@ static bool monkey_proofed = true;
 -(IBAction)btStart:(id)sender
 {
 //
-//    if ([m_pTestEngine IsTesting:-1])
-//    {
-//        NSRunAlertPanel(@"TestManager", @"Engine is running,please stop the test sequence first!", @"OK", nil, nil);
-//        return;
-//    }
-//    
+    if ([m_pTestEngine IsTesting:-1])
+    {
+        NSRunAlertPanel(@"TestManager", @"Engine is running,please stop the test sequence first!", @"OK", nil, nil);
+        return;
+    }
+//
 //    [btnShowFailOnly setState:NSOffState];
 //    [btnShowFailOnly setEnabled:NO];
 //    [self redisplayOutlineView:nil];
@@ -2496,9 +2496,9 @@ static bool monkey_proofed = true;
 //    return 0;
 //}
 //
-//#pragma mark Notification
-//-(void)OnUiNotification:(NSNotification *)nf
-//{
+#pragma mark Notification
+-(void)OnUiNotification:(NSNotification *)nf
+{
 //    NSString * name = [nf name];
 //    if ([name isEqualToString:kNotificationOnTestStart])
 //    {
@@ -2613,7 +2613,7 @@ static bool monkey_proofed = true;
 //        [btUUT6 displayIfNeeded] ;
 //        [self btUUT:btUUT6] ;
 //    }
-//}
+}
 //
 //#pragma mark Engine_Finish
 //-(int)PromptLog:(NSString * )msg
@@ -2635,10 +2635,10 @@ static bool monkey_proofed = true;
 //    [textPromptLog setString:@""];
 //    return 0;
 //}
-//-(void)OnEngineNotification:(NSNotification *)nf
-//{
-//    if ([[nf name] isEqualToString:kNotificationOnEngineStart])
-//    {
+-(void)OnEngineNotification:(NSNotification *)nf
+{
+    if ([[nf name] isEqualToString:kNotificationOnEngineStart])
+    {
 //        //global ui update
 //        [btSelectAll setEnabled:NO];
 //        [textSNInput setEnabled:NO];
@@ -2649,8 +2649,8 @@ static bool monkey_proofed = true;
 //        [btUUT4 setEnabled:NO];
 //        [btUUT5 setEnabled:NO];
 //        [btUUT6 setEnabled:NO];
-//    }
-//    else if ([[nf name]isEqualToString:kNotificationOnEngineFinish]) {
+    }
+    else if ([[nf name]isEqualToString:kNotificationOnEngineFinish]) {
 //        /*
 //         NSString * key[] = {@kEngineUUT0Enable,@kEngineUUT1Enable,@kEngineUUT2Enable,@kEngineUUT3Enable};
 //         NSMutableString * str = [NSMutableString string];
@@ -2665,7 +2665,7 @@ static bool monkey_proofed = true;
 //         }
 //         [str appendFormat:@"UUT%d : %@\n",i+1,strResult];
 //         }
-//         }
+         }
 //         [self performSelectorOnMainThread:@selector(PromptLog:) withObject:str waitUntilDone:YES];
 //         */
 //        //global ui update
@@ -2729,7 +2729,7 @@ static bool monkey_proofed = true;
 //            }
 //        }
 //    }
-//}
+}
 //
 //#pragma mark Menu Auto Enable
 //- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem

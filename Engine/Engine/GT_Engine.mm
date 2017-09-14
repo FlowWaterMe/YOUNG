@@ -7,6 +7,8 @@
 //
 
 #import "GT_Engine.h"
+#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import "CoreLib/Common.h"
 @implementation GT_Engine
 
@@ -27,7 +29,7 @@
             [self RegisterUUT_Variant:i];
             
             //Test Context
-//            m_pTestContext[i] = new CTestContext();
+            m_pTestContext[i] = new CTestContext();
         }
         
         //intial global
@@ -113,7 +115,7 @@
     
     //initial
     for (int i=0; i<UUT_MODULE; i++) {
-//        [m_pTestContext[i]->m_dicContext setValue:[NSNumber numberWithBool:NO] forKey:@"IsTestBreak?"];
+        [m_pTestContext[i]->m_dicContext setValue:[NSNumber numberWithBool:NO] forKey:@"IsTestBreak?"];
 //
         m_ScriptEngine[i]->Reslease();
         m_ScriptEngine[i]->Init();
@@ -131,12 +133,12 @@
 
     for (int i=0;i<=UUT_MODULE-1;i++)
     {
-//        id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
-//        if (en)
-//        {
-//            if (![en intValue])         //Skip Test
-//                continue;
-//        }
+        id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
+        if (en)
+        {
+            if (![en intValue])         //Skip Test
+                continue;
+        }
         
         m_ModuleTesting++;
         
@@ -152,7 +154,7 @@
         //post notification start test
         NSDictionary * dicProcess = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i],KEY_FIXTURE_ID,[NSNumber numberWithInt:TEST_PROCESS_START],KEY_TEST_PROCESS,nil];
         
-//        [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnEngineStart object:nil userInfo:dicProcess];
+        [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnEngineStart object:nil userInfo:dicProcess];
         
         [[threadUintTest[i] threadDictionary] removeAllObjects];
         [threadUintTest[i] start];
@@ -186,12 +188,12 @@
         BOOL bAbort = NO;
         for (int i=0;i<=UUT_MODULE-1;i++)
         {
-//            id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
-//            if (en)
-//            {
-//                if (![en intValue])         //Skip Test
-//                    continue;
-//            }
+            id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
+            if (en)
+            {
+                if (![en intValue])         //Skip Test
+                    continue;
+            }
             if ([threadUintTest[i] isCancelled])
             {
                 bAbort = YES;
@@ -207,39 +209,39 @@
         {
             for (int i=0;i<=UUT_MODULE-1;i++)
             {
-//                id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
-//                if (en)
-//                {
-//                    if (![en intValue])         //Skip Test
-//                        continue;
-//                }
-//                
-//                NSMutableDictionary * dic = m_pTestContext[i]->m_dicContext;
-//                id isbreak = [dic valueForKey:@"IsTestBreak?"];
-//                if ([isbreak boolValue])   //test has been break with exception
-//                {
-//                    NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test abort!",i], @"OK", nil, nil);
-//                    NSLog(@"UUT%d test has been aborted! will don't save any data.",i);
-//                }
-//                else
-//                {
-//                    //NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test done!",i], @"OK", nil, nil);
-//                    int err = m_ScriptEngine[i]->DoString("__TestFinish()");  //call back
-//                    if (err!=0)
-//                    {
-//                        NSString * strError = [NSString stringWithUTF8String:lua_tostring(m_ScriptEngine[i]->m_pLuaState, -1)];
-//                        NSString * strLog = [NSString stringWithFormat:@"Error : %@ Reason:%@",@"Script Error",strError];
-//                        [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnTestError object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:strLog,@"msg",[NSNumber numberWithInt:i],@"id", nil]];
-//                    }
-//                    NSLog(@"UUT%d test finished! test data will save normally.",i);
-//                }
+                id en = [CTestContext::m_dicConfiguration valueForKey:dicKey[i]];
+                if (en)
+                {
+                    if (![en intValue])         //Skip Test
+                        continue;
+                }
+                
+                NSMutableDictionary * dic = m_pTestContext[i]->m_dicContext;
+                id isbreak = [dic valueForKey:@"IsTestBreak?"];
+                if ([isbreak boolValue])   //test has been break with exception
+                {
+                    NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test abort!",i], @"OK", nil, nil);
+                    NSLog(@"UUT%d test has been aborted! will don't save any data.",i);
+                }
+                else
+                {
+                    NSRunAlertPanel(@"OK", [NSString stringWithFormat:@"UUT%d test done!",i], @"OK", nil, nil);
+                    int err = m_ScriptEngine[i]->DoString("__TestFinish()");  //call back
+                    if (err!=0)
+                    {
+                        NSString * strError = [NSString stringWithUTF8String:lua_tostring(m_ScriptEngine[i]->m_pLuaState, -1)];
+                        NSString * strLog = [NSString stringWithFormat:@"Error : %@ Reason:%@",@"Script Error",strError];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:kNotificationOnTestError object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:strLog,@"msg",[NSNumber numberWithInt:i],@"id", nil]];
+                    }
+                    NSLog(@"UUT%d test finished! test data will save normally.",i);
+                }
             }
         }
         break;//while(1)
     }
     
     //All done;
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnEngineFinish object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOnEngineFinish object:nil userInfo:nil];
 }
 
 -(int)IsTesting:(int)index      //may be call in multi thread

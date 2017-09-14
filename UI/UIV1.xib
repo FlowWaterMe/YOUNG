@@ -960,7 +960,7 @@ READY</string>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLZ-Pi-Aft">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLZ-Pi-Aft" userLabel="CYGIA">
                         <rect key="frame" x="823" y="613" width="77" height="46"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" drawsBackground="YES" id="bBO-ei-XYi">
                             <font key="font" metaFont="systemBold" size="19"/>
@@ -995,10 +995,10 @@ GRR!!!</string>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
-                    <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EaI-lh-sjp">
-                        <rect key="frame" x="951" y="613" width="184" height="56"/>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKd-XZ-8JR">
+                        <rect key="frame" x="990" y="621" width="181" height="48"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Intelligent" id="kQD-AK-4vR"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="cygia_logo" id="bAZ-hj-L9R"/>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -1027,6 +1027,7 @@ GRR!!!</string>
             <connections>
                 <outlet property="initialFirstResponder" destination="KQF-OC-4FC" id="91z-hs-y0v"/>
             </connections>
+            <point key="canvasLocation" x="-960" y="161.5"/>
         </window>
         <customObject id="Qw7-hk-H1n" customClass="uiMainWndDelegate">
             <connections>
@@ -3052,11 +3053,11 @@ Gw
         </customObject>
     </objects>
     <resources>
-        <image name="Intelligent" width="183" height="54"/>
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>
         <image name="NSSlideshowTemplate" width="17" height="14"/>
         <image name="NSUser" width="32" height="32"/>
         <image name="Pause" width="32" height="32"/>
+        <image name="cygia_logo" width="2268" height="473"/>
     </resources>
 </document>

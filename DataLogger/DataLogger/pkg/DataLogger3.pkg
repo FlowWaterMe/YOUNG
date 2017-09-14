@@ -1,0 +1,11 @@
+//
+//  DataLogger_Global.h
+//  DataLogger
+//
+//  Created by Ryan on 12-9-21.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//
+#pragma once
+$#include "DataLogger_Global.h"
+
+extern CDataLogger * DataLogger3@DataLogger;

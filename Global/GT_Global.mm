@@ -10,7 +10,11 @@
 #include <lua.hpp>
 #include <tolua++.h>
 #include "Global_Variant.h"
-#include "/Users/mac/Documents/程序/YOUNG/CoreLib/TestContext.h"
+#include <CoreLib/TestContext.h>
+#import "IPSFCPost_API.h"
+#import "InstantPudding_API.h"
+
+#import "CBAuth.h"
 @implementation GT_Global
 TestEngine  * pTestEngine = nil;
 void Global_Init();
@@ -239,14 +243,14 @@ TOLUA_API int  tolua_Global_Variant6_open (lua_State* tolua_S);
     }
 // register script
     
-    NSBundle * bundle = [NSBundle bundleForClass:[self class];
+    NSBundle * bundle = [NSBundle bundleForClass:[self class]];
     NSString * str = [NSString stringWithFormat:@"package.path = package.path..';'..'%@'..'/?.lua'",[bundle resourcePath]];
     [pTestEngine RegisterString:[str UTF8String]];
     [pTestEngine RegisterString:"tc = require \"Context\""];
     if(fixtureid == 0)
     {
         NSString * strscript = [bundle pathForResource:@"Context" ofType:@"lua"];
-        ListLuaFile([strscript UTF8String],"tc");
+//        ListLuaFile([strscript UTF8String],"tc");
         NSString * strTag = [NSString stringWithContentsOfFile:[bundle pathForResource:@"tags" ofType:@""] encoding:NSASCIIStringEncoding error:nil];
 //        AddTags([NSDictionary dictionaryWithObjectsAndKeys:strTag,@kTagValue,nil]);
     }
